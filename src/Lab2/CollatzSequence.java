@@ -89,21 +89,30 @@ public class CollatzSequence
 		return this;
 	}
 	
+	/**
+	 * A method to print out the value of the Sequence.
+	 */
 	public void print()
 	{
+		// resolve it if needed
 		this.resolve();
+		
+		// Print out some basic info
 		System.out.println("The Collatz Sequence for "+this.start.getValue()+"\nSteps: "+this.steps);
 		
+		// print out the values with a loop
 		String out = "Values:\t"+this.start.getValue()+", ";
 		CollatzNode current = this.start;
 		do
 		{
 			current = current.getNext();
 			out += current.getValue();
+			// add the next comma if it's needed
 			if(current.hasNext())
 			{
 				out +=", ";
 			}
+			// add some wrapping
 			if(out.length() > 100)
 			{
 				System.out.println(out);
