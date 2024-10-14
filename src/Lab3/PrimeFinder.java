@@ -1,5 +1,9 @@
 package Lab3;
 
+/**
+ * A class to find the nth prime number
+ * @author Éamonn "Wing" Kearns 60460770
+ */
 public class PrimeFinder
 {
     /**
