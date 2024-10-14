@@ -1,9 +1,11 @@
 package Lab2;
 
+import Node.Node;
+
 /**
  * A class to contain the values for a collatz sequence entry It's just a POJO though.
  */
-public class CollatzNode
+public class CollatzNode extends Node
 {
 	/**
 	 * The value of the node
@@ -20,7 +22,7 @@ public class CollatzNode
 	 */
 	public CollatzNode(int value)
 	{
-		this.value = value;
+		super(value);
 	}
 	
 	/**
