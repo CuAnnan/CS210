@@ -4,7 +4,13 @@ public class PrimeDriver
 {
 	public static void main(String args[])
 	{
-		int p = PrimeFinder.getNthPrime(4);
-		System.out.println(p);
+	    long start = System.currentTimeMillis();
+	    
+	    int n = 50000;
+	    
+	    System.out.println("The "+n+"th prime is "+PrimeFinder.getNthPrime(50000));
+		long end = System.currentTimeMillis();
+		long duration = end - start;
+		System.out.println("Took "+duration+" milliseconds to find");
 	}
 }
