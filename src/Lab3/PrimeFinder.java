@@ -73,7 +73,8 @@ public class PrimeFinder
 	}
 	
 	/**
-	 * 
+	 * Add a known prime to the set of known primes and increases the number of known primes
+	 * @param n The prime to add to the list
 	 */
 	private static void addKnownPrime(int n)
 	{
@@ -88,10 +89,14 @@ public class PrimeFinder
 		}
 	    // and add the new prime to the known prime array
 		knownPrimes[knownPrimesCount ] = n;
+		// this is because we have empty values in the prime array
 		knownPrimesCount ++;
 		
 	}
 	
+	/**
+	 * A method to output the list of known primes
+	 */
 	public static void printKnownPrimes()
 	{
 	    String out = "";
