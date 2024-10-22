@@ -5,7 +5,7 @@ import Node.Node;
 /**
  * A class to contain the values for a collatz sequence entry It's just a POJO though.
  */
-public class CollatzNode extends Node
+public class CollatzNode
 {
 	/**
 	 * The value of the node
@@ -22,7 +22,7 @@ public class CollatzNode extends Node
 	 */
 	public CollatzNode(int value)
 	{
-		super(value);
+		this.value = value;
 	}
 	
 	/**

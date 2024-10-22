@@ -45,6 +45,7 @@ public class CollatzSequence
 	{
 		this.start = new CollatzNode(number);
 		this.end = this.start;
+		this.steps = 1;
 	}
 	
 	/**
@@ -71,6 +72,7 @@ public class CollatzSequence
 		// Only does the work if it hasn't been done already
 		if(!this.resolved)
 		{
+			System.out.println("Resolving");
 			int nextValue;
 			do
 			{
@@ -94,6 +96,7 @@ public class CollatzSequence
 	 */
 	public void print()
 	{
+		System.out.println("Starting for "+this.start.getValue());
 		// resolve it if needed
 		this.resolve();
 		
