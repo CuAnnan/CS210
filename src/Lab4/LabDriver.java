@@ -25,28 +25,30 @@ public class LabDriver
 		}
 		    
 		    
-//		System.out.println("=== [Bubbleish sort] ===");
-//		d.reset();
-//		System.out.println("Unsorted dictionary:");
-//		d.printArrayContents();
-//		d.bubbleishSort(false);
-//		System.out.println("Sorted dictionary:");
-//		d.printArrayContents();
+		System.out.println("=== [Bubbleish sort] ===");
+		d.reset();
+		System.out.println("Unsorted dictionary:");
+		d.printArrayContents();
+		d.bubbleishSort(false);
+		System.out.println("Sorted dictionary:");
+		d.printArrayContents();
+		System.out.println();
 		
 		System.out.println("=== [Selectionish sort] ===");
 		d.reset();
-//		System.out.println("Unsorted dictionary: ");
-//		d.printArrayContents();
-		d.selectionishSort();
-//		System.out.println("Sorted dictionary:");
+		System.out.println("Unsorted dictionary: ");
 		d.printArrayContents();
+		d.selectionishSort(false);
+		System.out.println("Sorted dictionary:");
+		d.printArrayContents();
+		System.out.println();
 		
 		System.out.println("=== [Insertionish sort] === ");
 		d.reset();
-//		System.out.println("Unsorted dictionary: ");
-//		d.printArrayContents();
-		d.insertionishSort();
-//		System.out.println("Sorted dictionary:");
+		System.out.println("Unsorted dictionary: ");
+		d.printArrayContents();
+		d.insertionishSort(false);
+		System.out.println("Sorted dictionary:");
 		d.printArrayContents();
 		
 		sc.close();

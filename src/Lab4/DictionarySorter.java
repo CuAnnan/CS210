@@ -133,100 +133,155 @@ public class DictionarySorter
 	 */
 	public void insertionishSort(boolean sizeSortAscending, boolean lexicalSortAscending)
 	{
-	    // 
+	    // reset the array of words
         this.reset();
-        System.out.println("Size sort ascending: "+sizeSortAscending);
-        System.out.println("Lexical sort ascendign: ");
+        // loop forward through the words from the second to the last  
         for(int i = 1; i < this.words.length; i++)
         {
+            // this is a boolean to allow us to search forward until we're done
             boolean searching = true;
+            // set the start of the backwards search to the 
             int j = i;
             
+            // loop back and swap until we no longer meet a valid swap
             do
             {
+                // while I'd love to do this as a single if statement (and it is possible) the if statement becomes unwieldy
+                // so what we do is check if they're equal length
                 if(words[j-1].length()==words[j].length())
                 {
+                    // and if they are and the lexical sorting needs to be done
                     if(words[j-1].compareToIgnoreCase(words[j]) > 0 == lexicalSortAscending)
                     {
-                        this.swap(j-1, j);                        
+                        // we swap them
+                        swap(j, j-1);
                     }
                 }
+                // otherwise if the size sort needs to be done
                 else if(words[j-1].length() > words[j].length() == sizeSortAscending)
                 {
-                    this.swap(j-1, j);
+                    // we swap them
+                    swap(j, j-1);
+                }
+                else
+                {
+                    // if the size swap doesn't need to be done, the list is as sorted as this outer loop will allow
+                    searching = false;
                 }
                 
-                
+                // decrease the inner loop counter
                 j--;
                 if(j == 0)
                 {
+                    // if we're out of possible indices, then this is the smallest value for this loop and the internal search loop is done
                     searching = false;
                 }
             }while(searching);
         }
 	}
 	
+	/**
+	 * Selection sort zero paramater helper method. Defaults both to true.
+	 */
 	public void selectionishSort()
 	{
 		this.selectionishSort(true);
 	}
 	
+	/**
+	 * Selection sort one parameter helper method. Defaults both to the value of sortAscending
+	 * @param sortAscending If true; sort ascending, if false; sort descending.
+	 */
 	public void selectionishSort(boolean sortAscending)
 	{
 		this.selectionishSort(sortAscending, sortAscending);
 	}
 	
+	/**
+	 * Selection sort delegation method. This algorithm needs to be split into two, as the size sort needs to be done before the lexical sort.
+	 * @param sizeSortAscending    If true, sort ascending. If false, sort descending.
+	 * @param lexicalSortAscending If true, sort ascending. If false, sort descending.
+	 */
 	public void selectionishSort(boolean sizeSortAscending, boolean lexicalSortAscending)
 	{
+	    // reset the array
 		this.reset();
+		// run the size sort
 		this.selectionishSortSize(sizeSortAscending);
+		// run the lexical sort
 		this.selectionishSortLexical(lexicalSortAscending);
 	}
 	
+	/**
+	 * Selection sort based on the size of the words
+	 * @param sortAscending If true, sort ascending. If false, sort descending.
+	 */
 	public void selectionishSortSize(boolean sortAscending)
 	{
+	    // loop forward to the second last word
 		for(int i = 0; i < this.words.length - 1; i++)
 		{
+		    // assume the current index is the smallest word
 			int min = i;
+			// loop forward looking for words that are smaller than the current index
 			for(int j = i+1; j < this.words.length; j++)
 			{
-				if(
-					this.words[j].length() < this.words[min].length() == sortAscending
-				)
+			    // do the comparison
+				if(this.words[j].length() < this.words[min].length() == sortAscending)
 				{
+				    // if the current word is smaller, we set min to it
 					min = j;
 				}
 			}
+			// now that we're done, if there is a swap to be done
 			if(i != min)
 			{
+			    // swap
 				this.swap(i, min);
 			}
 		}
 	}
 	
+	/**
+	 * This is the lexical sort method for the selection sort algorithm.
+	 * @param sortAscending If true, sort ascending. If false, sort descending.
+	 */
 	public void selectionishSortLexical(boolean sortAscending)
 	{
 		// start at the start and move forward in blocks of same size text
 		for(int i = 0; i < this.words.length-1; i++)
 		{
+		    // internal loop index
 			int j = i;
-			int shortest = i;
+			
+			// assume that this is the word we're gonna swap
+			int lexicalSwapIndex = i;
+			
+			// loop forward again but only while the next word is the same length as this word (and we have a next element)
 			while(j < this.words.length - 1 && this.words[j].length() == this.words[j+1].length())
 			{
-				if(this.words[shortest].compareToIgnoreCase(this.words[j+1]) > 0 == sortAscending)
+			    // do the lexical comparison
+				if(this.words[lexicalSwapIndex].compareToIgnoreCase(this.words[j+1]) > 0 == sortAscending)
 				{
-					shortest = j+1;
+				    // if a swap is needed, set the word to be swapped
+					lexicalSwapIndex = j+1;
 				}
+				// increase the internal loop index
 				j++;
 			}
 			
-			if(shortest != i)
+			// if a swap is needed
+			if(lexicalSwapIndex != i)
 			{
-				this.swap(i, shortest);
+			    // do the swap
+				this.swap(i, lexicalSwapIndex);
 			}
 		}
 	}
 	
+	/**
+	 * A method to print out the array contents.
+	 */
 	public void printArrayContents()
 	{
 		for(int i = 0; i < this.words.length - 1; i++)
