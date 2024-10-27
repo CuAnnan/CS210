@@ -1,38 +1,54 @@
 package Lab4;
+import java.util.Scanner;
 
 public class LabDriver
 {
 	public static void main(String[] args)
 	{
-		String[] words = "This is a pretty good random spread of words to test on".split(" ");
-		DictionarySorter d = new DictionarySorter(words.length);
-		for(String word: words)
-		{
-			d.addWord(word);
-		}
+		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("=== [Bubbleish sort] ===");
-		d.reset();
-		System.out.println("Unsorted dictionary:");
-		d.printArrayContents();
-		d.bubbleishSort();
-		System.out.println("Sorted dictionary:");
-		d.printArrayContents();
+//		System.out.println("Input data:");
+//		
+//		int n = Integer.parseInt(sc.nextLine());
+//		
+//		DictionarySorter d = new DictionarySorter(n);
+//		for(int i = 0; i < n; i++)
+//	    {
+//		    d.addWord(sc.nextLine());
+//	    }
+
+		String[] words = "This is a pretty good random sentence of as yet undecided length and a good spread of letter lengths".split(" ");
+		DictionarySorter d = new DictionarySorter(words.length);
+		for(String s: words)
+		{
+		    d.addWord(s);
+		}
+		    
+		    
+//		System.out.println("=== [Bubbleish sort] ===");
+//		d.reset();
+//		System.out.println("Unsorted dictionary:");
+//		d.printArrayContents();
+//		d.bubbleishSort(false);
+//		System.out.println("Sorted dictionary:");
+//		d.printArrayContents();
 		
 		System.out.println("=== [Selectionish sort] ===");
 		d.reset();
-		System.out.println("Unsorted dictionary: ");
-		d.printArrayContents();
+//		System.out.println("Unsorted dictionary: ");
+//		d.printArrayContents();
 		d.selectionishSort();
-		System.out.println("Sorted dictionary:");
+//		System.out.println("Sorted dictionary:");
 		d.printArrayContents();
 		
 		System.out.println("=== [Insertionish sort] === ");
 		d.reset();
-		System.out.println("Unsorted dictionary: ");
-		d.printArrayContents();
+//		System.out.println("Unsorted dictionary: ");
+//		d.printArrayContents();
 		d.insertionishSort();
-		System.out.println("Sorted dictionary:");
+//		System.out.println("Sorted dictionary:");
 		d.printArrayContents();
+		
+		sc.close();
 	}
 }
