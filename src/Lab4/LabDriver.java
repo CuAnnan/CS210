@@ -1,6 +1,5 @@
 package Lab4;
 import java.util.Scanner;
-import java.util.Random;
 
 public class LabDriver
 {
@@ -20,62 +19,27 @@ public class LabDriver
 
 		String[] words = "This is a pretty good random sentence of as yet undecided length and a good spread of letter lengths that I will randomise later with a Durstenfield Fisher Yates shuffling algorithm solid set of words that I can randomly pull from with varying lengths because that's what stream of consciousness gets you".split(" ");
 		
-//		Random r = new Random();
-        
-//		for(int i = words.length - 1; i > 1; i--)
-//		{
-//		    String temp = words[i];
-//		    int index = r.nextInt(i + 1);
-//		    words[i] = words[index];
-//		    words[index] = temp;
-//		}
-//		
-//		int n = r.nextInt(10) + 10;
-//		String[] wordsToSort = new String[n];
-//		System.arraycopy(words, 0, wordsToSort, 0, n);
-
-		
-		Sorter.setWordCount(words.length);
+		ArraySorter.setWordCount(words.length);
 		for(String s: words)
 		{
-		    Sorter.addWord(s);
+		    ArraySorter.addWord(s);
 		}
 		
-		BubbleSorter b = new BubbleSorter();
-		b.demo();
+		try
+		{
+		    ArrayBubbleSorter b = new ArrayBubbleSorter();
+	        b.demonstrateSorting();
+	        ArraySelectionSorter s = new ArraySelectionSorter();
+	        s.demonstrateSorting();
+	        ArrayInsertionSorter i = new ArrayInsertionSorter();
+	        i.demonstrateSorting();
+		}
+		catch(StringsNotSetException e)
+		{
+		    System.out.println("Tried instantiating sorters with no array.");
+		}
 		
-		SelectionSorter s = new SelectionSorter();
-		b.demo();
-        
-		InsertionSorter i = new InsertionSorter();
-		i.demo();
+		sc.close();
 		
-//		
-//		
-//		
-//		DictionarySorter d = new DictionarySorter(words.length);
-//		for(String s: words)
-//		{
-//		    d.addWord(s);
-//		}
-//		
-//		System.out.println("=== [Selectionish sort] ===");
-//		d.reset();
-//		System.out.println("Unsorted dictionary: ");
-//		d.printArrayContents();
-//		d.selectionishSort(false);
-//		System.out.println("Sorted dictionary in "+(end - start)+" ms:");
-//		d.printArrayContents();
-//		System.out.println();
-//		
-//		System.out.println("=== [Insertionish sort] === ");
-//		d.reset();
-//		System.out.println("Unsorted dictionary: ");
-//		d.printArrayContents();
-//		d.insertionishSort(false);
-//		System.out.println("Sorted dictionary in "+(end - start)+" ms:");
-//		d.printArrayContents();
-//		
-//		sc.close();
 	}
 }

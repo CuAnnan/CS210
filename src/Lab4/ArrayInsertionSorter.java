@@ -1,13 +1,15 @@
 package Lab4;
 
-public class InsertionSorter extends Sorter
+public class ArrayInsertionSorter extends ArraySorter
 {
-    public void reset()
+    public ArrayInsertionSorter() throws StringsNotSetException
     {
-        System.out.println("Insertion Sorter");
-        super.reset();
+        super();
     }
-    
+
+    /**
+     * Sort the array using the insertion method
+     */
     public void sort(boolean sizeAscending, boolean lexicalAscending)
     {
      // loop forward through the words from the second to the last  

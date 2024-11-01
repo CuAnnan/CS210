@@ -1,14 +1,20 @@
 package Lab4;
 
-public class SelectionSorter extends Sorter
+/**
+ * A class to sort an array of words using the selection sort
+ * @author Éamonn "Wing" Kearns 60460770
+ */
+public class ArraySelectionSorter extends ArraySorter
 {
-    public void reset()
+    
+    public ArraySelectionSorter() throws StringsNotSetException
     {
-        System.out.println("Selection sort");
-        super.reset();
+        super();
     }
     
-    
+    /**
+     * Dummy method which calls the two workhorse methods
+     */
     public void sort(boolean sizeAscending, boolean lexicalAscending)
     {
         // run the size sort
@@ -24,15 +30,15 @@ public class SelectionSorter extends Sorter
     public void sortSize(boolean sortAscending)
     {
         // loop forward to the second last word
-        for(int i = 0; i < Sorter.words.length - 1; i++)
+        for(int i = 0; i < words.length - 1; i++)
         {
             // assume the current index is the smallest word
             int min = i;
             // loop forward looking for words that are smaller than the current index
-            for(int j = i+1; j < Sorter.words.length; j++)
+            for(int j = i+1; j < words.length; j++)
             {
                 // do the comparison
-                if(Sorter.words[j].length() < Sorter.words[min].length() == sortAscending)
+                if(words[j].length() < words[min].length() == sortAscending)
                 {
                     // if the current word is smaller, we set min to it
                     min = j;
@@ -42,7 +48,7 @@ public class SelectionSorter extends Sorter
             if(i != min)
             {
                 // swap
-                Sorter.swap(i, min);
+                swap(i, min);
             }
         }
     }
@@ -54,7 +60,7 @@ public class SelectionSorter extends Sorter
     public void sortLexical(boolean sortAscending)
     {
         // start at the start and move forward in blocks of same size text
-        for(int i = 0; i < Sorter.words.length-1; i++)
+        for(int i = 0; i < words.length-1; i++)
         {
             // internal loop index
             int j = i;
@@ -63,10 +69,10 @@ public class SelectionSorter extends Sorter
             int lexicalSwapIndex = i;
             
             // loop forward again but only while the next word is the same length as this word (and we have a next element)
-            while(j < Sorter.words.length - 1 && Sorter.words[j].length() == Sorter.words[j+1].length())
+            while(j < words.length - 1 && words[j].length() == words[j+1].length())
             {
                 // do the lexical comparison
-                if(Sorter.words[lexicalSwapIndex].compareToIgnoreCase(Sorter.words[j+1]) > 0 == sortAscending)
+                if(words[lexicalSwapIndex].compareToIgnoreCase(words[j+1]) > 0 == sortAscending)
                 {
                     // if a swap is needed, set the word to be swapped
                     lexicalSwapIndex = j+1;
@@ -79,7 +85,7 @@ public class SelectionSorter extends Sorter
             if(lexicalSwapIndex != i)
             {
                 // do the swap
-                Sorter.swap(i, lexicalSwapIndex);
+                swap(i, lexicalSwapIndex);
             }
         }
     }
