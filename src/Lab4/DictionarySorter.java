@@ -2,17 +2,21 @@ package Lab4;
 
 /**
  * A class to demonstrate an understanding of, and implementation of, the bubble sort, insertion sort, and selection sort.
+ * @author Éamonn "Wing" Kearns 60460770
  */
 public class DictionarySorter
 {
+    
     /**
      * An array of Strings to hold the sorted form of the words
      */
 	private String[] words;
+	
 	/**
 	 * An array of Strings to hold the unsorted words, which allows the rerunning of the array sorts
 	 */
 	private String[] wordsBackup;
+	
 	/**
 	 * A ticker for looping
 	 */
@@ -34,7 +38,7 @@ public class DictionarySorter
 	 */
 	public void addWord(String word)
 	{
-		words[index]=word;
+		words[index] = word;
 		wordsBackup[index] = word;
 		index++;
 	}
@@ -110,7 +114,8 @@ public class DictionarySorter
 	}
 	
 	/**
-	 * Helper method for the real selection sort with no params. This allows the defaulting of the method's proper implementation to true, true
+	 * Helper method for the real selection sort with no params.
+	 * This allows the defaulting of the method's proper implementation to true, true
 	 */
 	public void insertionishSort()
 	{
@@ -118,7 +123,8 @@ public class DictionarySorter
 	}
 	
 	/**
-	 * Helper method for the real selection with one param. This defaults both params of the real implementation to the provided value.
+	 * Helper method for the real selection with one param.
+	 * This defaults both params of the real implementation to the provided value.
 	 * @param sortAscending If set to true, the sort will be ascending. If it is false, it will be descending.
 	 */
 	public void insertionishSort(boolean sortAscending)
@@ -128,8 +134,10 @@ public class DictionarySorter
 	
 	/**
 	 * A method to insertion sort the array 
-     * @param lengthOrder  If lengthOrder is true, sorts ascending. If it's false, it sorts descending. Because of the other implementations, this "defaults" to true.
-     * @param wordOrder    If wordOrder is true, sorts ascending. If it's false, it sorts descending. Because of the other implementations, this "defaults" to true.
+     * @param lengthOrder   If lengthOrder is true, sorts ascending. If it's false, it sorts descending. 
+     *                      Because of the other implementations, this "defaults" to true.
+     * @param wordOrder     If wordOrder is true, sorts ascending. If it's false, it sorts descending.
+     *                      Because of the other implementations, this "defaults" to true.
 	 */
 	public void insertionishSort(boolean sizeSortAscending, boolean lexicalSortAscending)
 	{
