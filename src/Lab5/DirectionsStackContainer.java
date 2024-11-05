@@ -1,14 +1,21 @@
 package Lab5;
 
+/**
+ * Class to fulfil lab brief.
+ */
 public class DirectionsStackContainer
 {
-	ArrayStack<String> directions;
-	
+	/**
+	 * A Stack for the directions;
+	 */
+//	ArrayStack<String> directions;
+	StringArrayStack directions;
 	
 	
 	public DirectionsStackContainer()
 	{
-		directions = new ArrayStack<String>(100);
+//		directions = new ArrayStack<String>(100);
+		directions = new StringArrayStack(100);
 	}
 	
 	public static String getReverse(String direction)

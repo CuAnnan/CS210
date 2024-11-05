@@ -1,7 +1,8 @@
 package Lab5;
 
 /**
- * A class to implement an array based stack
+ * A class to implement an array based stack. I have to rely on supression of warnings because java doesn't
+ * like generic arrays. Which, fine. I guess.
  * @author Éamonn "Wing" Kearns
  * @param <T>
  */
@@ -20,6 +21,7 @@ public class ArrayStack<T>
 	 * Constructor. Just does some basic instantiation.
 	 * @param size
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayStack(int size)
 	{
 		this.size = size;
@@ -52,6 +54,7 @@ public class ArrayStack<T>
 	 * It only removes in effect by reducing the top allowing the element to be overwritten.
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public T pop()
 	{
 		//
@@ -62,6 +65,7 @@ public class ArrayStack<T>
 	 * See the current top element
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public T peek()
 	{
 		return (T)this.contents[top];
@@ -93,6 +97,9 @@ public class ArrayStack<T>
 		return this.top == this.size - 1;
 	}
 	
+	/**
+	 * Debug method
+	 */
 	public void debug()
 	{
 		System.out.println("Top: "+top+"\nContents: ");
