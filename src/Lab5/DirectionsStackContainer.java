@@ -1,5 +1,6 @@
 package Lab5;
 
+
 /**
  * Class to fulfil lab brief.
  */
@@ -79,6 +80,11 @@ public class DirectionsStackContainer
 				directions.push(direction);
 				break;
 		}
+	}
+	
+	public static void main(String args[])
+	{
+		
 	}
 	
 	/**
