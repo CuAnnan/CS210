@@ -29,10 +29,7 @@ public class LabDriver
 		{
 		    ArrayBubbleSorter b = new ArrayBubbleSorter();
 	        b.demonstrateSorting();
-	        ArraySelectionSorter s = new ArraySelectionSorter();
-	        s.demonstrateSorting();
-	        ArrayInsertionSorter i = new ArrayInsertionSorter();
-	        i.demonstrateSorting();
+	    	
 		}
 		catch(StringsNotSetException e)
 		{
