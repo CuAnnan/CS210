@@ -122,6 +122,8 @@ public class LinkedList<T>
      */
     private Node<T> tail;
     
+    // mid?
+    
     /**
      * The constructor just initialises the properties. Which I think is unneeded, but it's nice for clarity
      */
@@ -240,11 +242,40 @@ public class LinkedList<T>
     }
     
     /**
+     * Remove an element by value
+     * @param value	Returns the element that has been removed
+     * @return
+     */
+    public Node<T> remove(T value)
+    {
+    	Node<T> current = this.head;
+    	Node<T> previous = this.head;
+    	Node<T> toRemove = null;
+    	
+    	while(current.hasNext() && toRemove == null)
+    	{
+    		previous = current;
+    		current = current.getNext();
+    		if(current.equals(value))
+    		{
+    			toRemove = current;
+    		}
+    	}
+    	
+    	if(toRemove != null)
+    	{
+    		previous.setNext(current.getNext());
+    	}
+    	
+    	return toRemove;
+    }
+    
+    /**
      * The logic for removing an element at an index is a little tricky to follow. So pay attention, Wing.
      * @param index The index of the element to remove
      * @throws LinkedListIndexOutOfBoundsException
      */
-    public void remove(int index) throws LinkedListIndexOutOfBoundsException
+    public void removeNth(int index) throws LinkedListIndexOutOfBoundsException
     {
         if(index < 0)
         {
@@ -637,6 +668,12 @@ public class LinkedList<T>
     public int getLength()
     {
         return this.length;
+    }
+    
+    public void empty()
+    {
+    	this.tail = null;
+    	this.head = null;
     }
     
     /**

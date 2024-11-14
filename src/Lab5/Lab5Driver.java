@@ -1,10 +1,12 @@
 package Lab5;
 
+import java.util.Scanner;
+
 
 /**
  * Class to fulfil lab brief.
  */
-public class DirectionsStackContainer
+public class Lab5Driver
 {
 	/**
 	 * A Stack for the directions;
@@ -12,13 +14,16 @@ public class DirectionsStackContainer
 //	ArrayStack<String> directions;
 	StringArrayStack directions;
 	
+	StringArrayQueue directionsIn;
+	
 	/**
 	 * Constructor
 	 */
-	public DirectionsStackContainer()
+	public Lab5Driver()
 	{
 //		directions = new ArrayStack<String>(100);
 		directions = new StringArrayStack(100);
+		directionsIn = new StringArrayQueue(100);
 	}
 	
 	/**
@@ -50,9 +55,13 @@ public class DirectionsStackContainer
 	 */
 	public void reverseDirections()
 	{
+		System.out.println("In:\t\tOut:");
 		// While we have a direction
 		while(!directions.isEmpty())
 		{
+			System.out.print(
+				String.format("%-8s", directionsIn.removeFromFront())+"\t"
+			);
 			// pop it and print it to the screen
 			System.out.println(
 				getReverse(directions.pop())
@@ -62,8 +71,8 @@ public class DirectionsStackContainer
 	
 	/**
 	 * Add an instruction to the container. If the direction is one of the cardinal directions, add that to
-	 * the stack. If it's "Go Back", we remove the last added direction. If it's "Arrived" we reverse the
-	 * directions
+	 * the stack. If it's "Go Back", we remove the last added direction. If it's "Arrived" we print the
+	 * reversed directions
 	 * @param direction
 	 */
 	public void addInstruction(String direction)
@@ -71,25 +80,49 @@ public class DirectionsStackContainer
 		switch(direction)
 		{
 			case "Go Back":
+				directionsIn.removeFromRear();
 				directions.pop();
 				break;
 			case "Arrived":
 				reverseDirections();
 				break;
 			default:
+				directionsIn.add(direction);
 				directions.push(direction);
 				break;
 		}
 	}
 	
+	public static Scanner getScanner(boolean useSimple)
+	{
+		Scanner sc;
+		if(useSimple)
+		{
+			String directions = "Go South\nGo North\nGo West\nGo East\nGo West\nGo Back\nGo North\nGo North\nArrived";
+			sc = new Scanner(directions);			
+		}
+		else
+		{
+			sc = new Scanner(System.in);
+		}
+		return sc;
+	}
+	
+	/**
+	 * Main method
+	 */
 	public static void main(String args[])
 	{
-		DirectionsStackContainer dc = new DirectionsStackContainer();
-		String[] directionsSet = "Go North;Go North;Go West;Go Back;Go East;Go South;Go North;Go Back;Arrived".split(";");
-		for(String direction: directionsSet)
+		Lab5Driver driver = new Lab5Driver();
+		
+		String direction;
+		Scanner sc = getScanner(true);
+		do
 		{
-			dc.addInstruction(direction);
-		}
+			direction = sc.nextLine();
+			driver.addInstruction(direction);
+		}while(direction!="Arrived" && sc.hasNextLine());
+		sc.close();
 	}
 	
 	/**

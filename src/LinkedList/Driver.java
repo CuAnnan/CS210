@@ -17,6 +17,10 @@ public class Driver
             l4.set(6, 78);
             l.debug();
             l4.debug();
+            Node<Integer> n = l4.remove(5);
+            System.out.println(n.getContents());
+            l4.debug();
+            
         }
         catch(Exception e)
         {
