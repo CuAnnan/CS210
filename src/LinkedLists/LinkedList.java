@@ -1,4 +1,4 @@
-package LinkedList;
+package LinkedLists;
 
 /**
  * An exception for when you try to do stupid things

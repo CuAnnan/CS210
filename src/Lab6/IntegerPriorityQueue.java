@@ -1,21 +1,45 @@
 package Lab6;
 
+/**
+ * A node element
+ * Used to store data and to act as links in the linked list
+ */
 class Node
 {
+    /**
+     * The value to store
+     */
 	int value;
+	/**
+	 * The next element it points to
+	 */
 	Node next;
 	
+	/**
+	 * Constructor
+	 * @param n    The value to store
+	 */
 	public Node(int n)
 	{
 		this.value = n;
 		this.next = null;
 	}
 	
+	/**
+	 * A comparator for whether the value in this node is bigger than or equal to the value in the other
+	 * @param other
+	 * @return
+	 */
 	public boolean gte(Node other)
 	{
 		return this.value >= other.value;
 	}
 	
+	/**
+	 * A comparator for whether the value in this node is bigger or equal tothan some int value
+	 * @param n
+	 * @return
+	 */
 	public boolean gte(int n)
 	{
 		return this.value >= n;
@@ -37,12 +61,28 @@ class Node
 	}
 }
 
+/**
+ * A double ended Linked List to act as the implementation data type for the queue
+ */
 class LinkedList
 {
+    /**
+     * Head node
+     */
 	Node head;
+	/**
+	 * Tail node
+	 */
 	Node tail;
+	
+	/**
+	 * The current number of items in the linked list. We have to update this every add or remove
+	 */
 	int length;
 	
+	/**
+	 * Constructor. Just initialises instance variables.
+	 */
 	public LinkedList()
 	{
 		this.head = null;
@@ -50,12 +90,20 @@ class LinkedList
 		this.length = 0;
 	}
 	
-	public void addToHead(int n)
+	/**
+	 * This is generally the public face of the addToHead method because you're seldom dealing with Nodes.
+	 * @param n
+	 */
+	protected void addToHead(int n)
 	{
 		this.addToHead(new Node(n));
 	}
 	
-	public void addToHead(Node n)
+	/**
+	 * The actual implementation
+	 * @param n
+	 */
+	protected void addToHead(Node n)
 	{
 		if(this.head == null)
 		{
@@ -70,12 +118,12 @@ class LinkedList
 		this.length++;
 	}
 	
-	public void addToTail(int n)
+	protected void addToTail(int n)
 	{
 		this.addToTail(new Node(n));
 	}
 	
-	public void addToTail(Node n)
+	protected void addToTail(Node n)
 	{
 		if(this.head == null)
 		{
@@ -90,7 +138,7 @@ class LinkedList
 		this.length++;
 	}
 	
-	public Node pop()
+	protected Node pop()
 	{
 		Node toPop = this.head;
 		this.head = this.head.next;
@@ -98,86 +146,134 @@ class LinkedList
 		return toPop;
 	}
 	
-	public int getLength()
+	protected int getLength()
 	{
 		return this.length;
 	}
 	
+	public String getDebugString()
+	{
+	    String out = "";
+        Node current = this.head;
+        out += current.value+" ";
+        while(current.hasNext())
+        {
+            current = current.next;
+            out += current.value +" ";
+        }
+        return out;
+	}
+	
 	public void debug()
 	{
-		System.err.println("Debug:");
-		String out = "";
-		Node current = this.head;
-		out += current.value+" ";
-		while(current.hasNext())
-		{
-			current = current.next;
-			out += current.value +" ";
-		}
-		
-		System.out.println(out);
+		System.out.println("Debug:\nLength: "+this.length+"\n"+this.getDebugString());
 	}
 }
 
 public class IntegerPriorityQueue extends LinkedList
 {
 	int size;
+	boolean orderAscending;
 	
 	public IntegerPriorityQueue(int size)
 	{
-		this.size = size;
+		this(size, true);
 	}
 	
-	public void insert(int n)
+	public IntegerPriorityQueue(int size, boolean orderAscending)
 	{
-		// create a new node to insert and then figure out where to put it
+	    this.size = size;
+	    this.orderAscending = orderAscending;
+	}
+	
+	public void debug()
+	{
+	    System.out.print((this.orderAscending?"Ascending":"Descending")+" Priority Queue ");
+	    System.out.println("Debug:\nLength: "+this.length+"\nMaximum Size: "+this.size+"\n"+this.getDebugString());
+	}
+	
+	
+	/**
+	 * A method to insert the int n at the appropriate position in the queue according to its priority
+	 * If this.sortAscending is set to true, the default, the sort order will be low to high. Otherwise high to low
+	 * @param n    The int to be inserted
+	 * @return     True if the insertion happened, false otherwise
+	 */
+	public boolean insert(int n)
+	{
+	    // if the amount of things (this.size) in this list is equal to the current length of the list (this.lengh)
+	    // this method returns false immediately
+	    if(this.length == this.size)
+	    {
+	        return false;
+	    }
+	    
+	    // otherwise we create a new node to insert
 		Node toInsert = new Node(n);
 		
-		// if we have nothing in the linked list, skip all searching
+		// if we have nothing in the linked list, skip all searching and just insert it at the head
 		if(this.length == 0)
 		{
 			this.addToHead(toInsert);
-			return;
+			return true;
 		}
 		
-		// figure out where to insert by looping through the contents until what we have is not
-		// bigger than current and then insert the 
+		// Start by assuming the current is the head and the previous is null
 		Node current = this.head;
 		Node previous = null;
 		
-		
-		while(current != null && toInsert.gte(current))
+		/*
+		 * While current isn't null, we can move previous to current and figure out if the element to be inserted
+		 * should be inserted before the new current
+		 * We do the second comparison to allow reverse order insertion.
+		 */
+		while(current != null && toInsert.gte(current) == this.orderAscending)
 		{
 			previous = current;
 			current = current.next;
 		}
 		
 		
-		// other edge case. We've nothing before this node because the second element is bigger
+		// If there's nothing before current, we should be adding to the head.
 		if(previous == null)
 		{
 			this.addToHead(n);
-			return;
+            return true;
 		}
 		
-		//System.out.println("Adding "+n+" between "+previous.value+" and "+current.value);
+		// Otherwise we add it before current and after previous
 		toInsert.next = current;
 		previous.next = toInsert;
+		// and increase the length by one
 		this.length++;
+		
+		// and return true
+        return true;
 	}
 	
+	/**
+	 *  pop and remove the value of the head element of the queue
+	 *  @return Returns the int value at the head of the queue
+	 */
 	public int remove()
 	{
-		Node toRemove = this.head;
-		this.head = this.head.next;
+		Node toRemove = this.pop();
 		return toRemove.value;
 	}
 	
+	/**
+	 * Returns true if the number of things added (this.length) equals the maximum size (this.size)
+	 * @return
+	 */
 	public boolean isFull()
 	{
 		return this.length == this.size;
 	}
 	
+	/**
+	 * Returns true if there's nothing in this queue
+	 * @return
+	 */
 	public boolean isEmpty()
 	{
 		return this.head == null;
