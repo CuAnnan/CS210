@@ -112,15 +112,15 @@ public class LinkedList<T>
     /**
      * The counter for the length of the linked list
      */
-    private int length;
+    protected int length;
     /**
      * The head of the linked list
      */
-    private Node<T> head;
+    protected Node<T> head;
     /**
      * The tail of the linked list
      */
-    private Node<T> tail;
+    protected Node<T> tail;
     
     // mid?
     
@@ -471,7 +471,7 @@ public class LinkedList<T>
      * @return The value of the node at the index
      * @throws LinkedListIndexOutOfBoundsException
      */
-    public T get(int index) throws LinkedListIndexOutOfBoundsException
+    public T getNthFromHead(int index) throws LinkedListIndexOutOfBoundsException
     {
         if(index < 0)
         {
@@ -490,7 +490,6 @@ public class LinkedList<T>
         {
             return tail.getContents();
         }
-        
         // since the first node has already been checked and returned by now, we can start at the one after it 
         Node<T> current = head.getNext();
         int i = 1;

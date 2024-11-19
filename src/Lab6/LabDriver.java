@@ -2,6 +2,7 @@ package Lab6;
 
 import java.util.Scanner;
 
+
 public class LabDriver
 {
    
@@ -9,37 +10,42 @@ public class LabDriver
     {
         if(useDefault)
         {
-            return new Scanner("13 17 19 31 62 13 78 8 1 remove 3 1 79 12 remove 9 19 91 152");
+            return new Scanner("13\n17\n19\n31\n62\n13\n78\n8\n1\nremove\n25\nremove");
         }
         return new Scanner(System.in);
     }
     
 	public static void main(String[] args)
 	{
-	    Scanner scSysIn = getScanner(true);
-	    String input = scSysIn.nextLine();
-	    String[] parts = input.split(" ");
+	    Scanner sc = getScanner(true);
+	    String input = sc.nextLine();
 	    
-	    IntegerPriorityQueue example = new IntegerPriorityQueue(Integer.parseInt(parts[0]));
-	    IntegerPriorityQueue exampleReversed = new IntegerPriorityQueue(Integer.parseInt(parts[0]), false);
+	    IntegerPriorityQueue queue = new IntegerPriorityQueue(Integer.parseInt(input));
+	    int lastAdded = -1;
 	    
-	    for(int i = 1; i < parts.length; i++)
+	    while(sc.hasNext())
 	    {
-	        switch(parts[i].toLowerCase())
-	        {
-	            case "remove":
-	                example.remove();
-	                exampleReversed.remove();
-	                break;
-                default:
-                    example.insert(Integer.parseInt(parts[i]));
-                    exampleReversed.insert(Integer.parseInt(parts[i]));
-                    break;
-	        }
+	    	input = sc.nextLine().toLowerCase();
+	    	switch(input)
+	    	{
+	    		case "remove":
+	    			int toRemove = queue.remove();
+	    			toRemove = lastAdded + 1;
+	    			lastAdded = toRemove;
+	    			queue.insert(lastAdded);
+	    			break;
+	    		default:
+	    			int toAdd = Integer.parseInt(input);
+	    			if(lastAdded < toAdd)
+	    			{
+	    				lastAdded = toAdd;
+	    			}
+	    			queue.insert(toAdd);
+	    			break;
+	    	}
 	    }
-	    example.debug();
-	    exampleReversed.debug();
+	    queue.debug();
 	    
-	    scSysIn.close();
+	    sc.close();
 	}
 }

@@ -170,10 +170,11 @@ class LinkedList
 	}
 }
 
-public class IntegerPriorityQueue extends LinkedList
+public class IntegerPriorityQueue
 {
 	int size;
 	boolean orderAscending;
+	LinkedList list;
 	
 	public IntegerPriorityQueue(int size)
 	{
@@ -182,14 +183,16 @@ public class IntegerPriorityQueue extends LinkedList
 	
 	public IntegerPriorityQueue(int size, boolean orderAscending)
 	{
+		
 	    this.size = size;
 	    this.orderAscending = orderAscending;
+	    this.list = new LinkedList();
 	}
 	
 	public void debug()
 	{
 	    System.out.print((this.orderAscending?"Ascending":"Descending")+" Priority Queue ");
-	    System.out.println("Debug:\nLength: "+this.length+"\nMaximum Size: "+this.size+"\n"+this.getDebugString());
+	    System.out.println("Debug:\nLength: "+this.list.length+"\nMaximum Size: "+this.size+"\n"+this.list.getDebugString());
 	}
 	
 	
@@ -203,23 +206,23 @@ public class IntegerPriorityQueue extends LinkedList
 	{
 	    // if the amount of things (this.size) in this list is equal to the current length of the list (this.lengh)
 	    // this method returns false immediately
-	    if(this.length == this.size)
-	    {
-	        return false;
-	    }
+//	    if(this.list.length == this.size)
+//	    {
+//	        return false;
+//	    }
 	    
 	    // otherwise we create a new node to insert
 		Node toInsert = new Node(n);
 		
 		// if we have nothing in the linked list, skip all searching and just insert it at the head
-		if(this.length == 0)
+		if(this.list.length == 0)
 		{
-			this.addToHead(toInsert);
+			this.list.addToHead(toInsert);
 			return true;
 		}
 		
 		// Start by assuming the current is the head and the previous is null
-		Node current = this.head;
+		Node current = this.list.head;
 		Node previous = null;
 		
 		/*
@@ -237,7 +240,7 @@ public class IntegerPriorityQueue extends LinkedList
 		// If there's nothing before current, we should be adding to the head.
 		if(previous == null)
 		{
-			this.addToHead(n);
+			this.list.addToHead(n);
             return true;
 		}
 		
@@ -245,11 +248,12 @@ public class IntegerPriorityQueue extends LinkedList
 		toInsert.next = current;
 		previous.next = toInsert;
 		// and increase the length by one
-		this.length++;
 		
 		// and return true
         return true;
 	}
+	
+	
 	
 	/**
 	 *  pop and remove the value of the head element of the queue
@@ -257,7 +261,7 @@ public class IntegerPriorityQueue extends LinkedList
 	 */
 	public int remove()
 	{
-		Node toRemove = this.pop();
+		Node toRemove = this.list.pop();
 		return toRemove.value;
 	}
 	
@@ -267,7 +271,7 @@ public class IntegerPriorityQueue extends LinkedList
 	 */
 	public boolean isFull()
 	{
-		return this.length == this.size;
+		return this.list.length == this.size;
 	}
 	
 	/**
@@ -276,6 +280,6 @@ public class IntegerPriorityQueue extends LinkedList
 	 */
 	public boolean isEmpty()
 	{
-		return this.head == null;
+		return this.list.head == null;
 	}
 }

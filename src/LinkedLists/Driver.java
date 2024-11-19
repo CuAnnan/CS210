@@ -1,31 +1,36 @@
 package LinkedLists;
 
+import java.util.Random;
+
 public class Driver
 {
     public static void main(String[] args)
     {
-        LinkedList<Integer> l = new LinkedList<Integer>();
+        DoublyLinkedList<Integer> dll = new DoublyLinkedList<Integer>();
+        Random random = new Random();
+        
         for(int i = 0; i < 20; i++)
         {
-            l.add(i);
+        	int r = random.nextInt(100) + 1;
+        	
+            dll.add(r);
         }
+        
         try
         {
-            LinkedList<Integer> l4 = l.slice(0);
-            l.debug();
-            l4.debug();
-            l4.set(6, 78);
-            l.debug();
-            l4.debug();
-            Node<Integer> n = l4.remove(5);
-            System.out.println(n.getContents());
-            l4.debug();
-            
+        	int index1 = random.nextInt(20) + 1;
+        	int index2 = 20 - index1;
+        	
+        	System.out.println(dll.getNthFromTail(index1));
+        	System.out.println(dll.getNthFromHead(index2));
         }
         catch(Exception e)
         {
             e.printStackTrace(System.out);
         }
+        
+        dll.debug();
+        System.out.println(dll.length);
     }
 
 }
