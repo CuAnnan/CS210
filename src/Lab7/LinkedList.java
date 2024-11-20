@@ -54,7 +54,6 @@ class Iterator
 	private Node previous;
 	private Node current;
 	LinkedList list;
-	private boolean hasIterated;
 	
 	
 	public Iterator(LinkedList list)
@@ -78,22 +77,10 @@ class Iterator
 		return this.current.getStudent();
 	}
 	
-	public Node getNext()
+	public void next()
 	{
-		Node toReturn = null;
-		if(this.hasIterated)
-		{
-			this.previous = this.current;
-			this.current = this.current.next;
-			toReturn = this.previous;
-		}
-		else
-		{
-			this.hasIterated = true;
-			this.current = this.list.getHead();
-			toReturn = this.current;
-		}
-		return toReturn;
+		this.previous = this.current;
+		this.current = this.current.next;
 	}
 	
 	public Node removeCurrent()
@@ -116,7 +103,7 @@ class Iterator
 	public void reset()
 	{
 		this.previous = null;
-		this.current = null;
+		this.current = this.list.getHead();
 	}
 }
 

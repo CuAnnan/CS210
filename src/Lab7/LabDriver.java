@@ -16,8 +16,9 @@ public class LabDriver
 		
 		while(i.hasNext())
 		{
-			Student s = i.getNext().getStudent();
+			Student s = i.getCurrentStudent();
 			System.out.println(s.toString());
+			i.next();
 		}
 	}
 	
@@ -38,28 +39,32 @@ public class LabDriver
 	
 	public static boolean searchForStudent(String key, String value)
 	{
-		System.out.println(key +" "+ value);
 		key = key.toLowerCase();
 		value = value.toLowerCase();
 		Student s = null;
 		boolean found = false;
 		while(!found && i.hasNext())
 		{
-			s = i.getNext().getStudent();
+			s = i.getCurrent().getStudent();
+			System.out.println(s.getName());
 			switch(key)
 			{
 				case "name":
-					found = s.getName().toLowerCase().equals(value);
+					found = s.getName().toLowerCase().equals(value.toLowerCase());
 					break;
 				case "age":
 					found = s.getAge() == Integer.parseInt(value);
 					break;
 				case "degree":
-					found = s.getDegree().toLowerCase().equals(value);
+					found = s.getDegree().toLowerCase().equals(value.toLowerCase());
 					break;
 				case "yearofstudy":
 					found = s.getYearOfStudy() == Integer.parseInt(value);
 					break;
+			}
+			if(!found)
+			{
+				i.next();
 			}
 		}
 		return found;
@@ -112,13 +117,13 @@ public class LabDriver
 					break;
 			}
 		}
-		System.out.println("Done");
 	}
 	
 	
 	public static void main(String[] args)
 	{
 		sc = new Scanner(System.in);
+		
 		
 		l = new LinkedList();
 		populate();
