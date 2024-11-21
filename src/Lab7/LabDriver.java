@@ -46,7 +46,6 @@ public class LabDriver
 		while(!found && i.hasNext())
 		{
 			s = i.getCurrent().getStudent();
-			System.out.println(s.getName());
 			switch(key)
 			{
 				case "name":
