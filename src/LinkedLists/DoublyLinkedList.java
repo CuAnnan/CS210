@@ -99,11 +99,6 @@ public class DoublyLinkedList<T> extends LinkedList<T>
 		this.addToHead(new DLLNode<T>(content));
 	}
 	
-	public DoublyLinkedListIterator<T> getIterator()
-	{
-		return new DoublyLinkedListIterator<T>(this);
-	}
-	
 	/**
      * Actual method to add a Node to the head of the LinkedList
      * @param previous  The node to add

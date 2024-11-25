@@ -134,6 +134,11 @@ public class LinkedList<T>
         tail = null;
     }
     
+    public Iterator<T> getIterator()
+    {
+        return new Iterator<T>(this);
+    }
+    
     /**
      * Add content to the tail of the linked list. This is actually just a helper method that instantiates a new node and calls the method for that footprint.
      * @param content   The content to add to the linked list
@@ -502,6 +507,11 @@ public class LinkedList<T>
         }
         // and return the value of current.
         return current.getContents();
+    }
+    
+    public Node<T> getHead()
+    {
+        return this.head;
     }
     
     /**
