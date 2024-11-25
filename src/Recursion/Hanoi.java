@@ -83,7 +83,6 @@ public class Hanoi
      */
     Tower[] towers=new Tower[3];
     int size;
-    int lastPrintLength;
     
     /**
      * This throws an exception if you run out of characters from the alphabet, putting a hard cap of 26 tiles on the tower.
@@ -170,7 +169,7 @@ public class Hanoi
         state += " *******   *******   *******\n";
         
         System.out.println(state);
-        this.lastPrintLength = state.length();
+
     }
     
     public static void main(String[] args)
