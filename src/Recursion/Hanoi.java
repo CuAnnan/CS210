@@ -20,20 +20,46 @@ class HanoiDisc
     }
 }
 
+class Tower
+{
+	HanoiDisc[] discs;
+	int length;
+	public Tower(int size)
+	{
+		this.discs = new HanoiDisc[size];
+		this.length = 0;
+	}
+	
+	public void addDisc(HanoiDisc disc)
+	{
+		this.discs[this.length++] = disc;
+	}
+	
+	public HanoiDisc getDisc(int i)
+	{
+		return this.discs[i];
+	}
+	
+	public HanoiDisc removeTopDisc()
+	{
+		return this.discs[--this.length];
+	}
+}
+
 public class Hanoi
 {
     /**
      *  Three arrays of hanoi discs
      */
-    HanoiDisc[] stack1, stack2, stack3;
+    Tower tower1, tower2, tower3;
     
     int size;
     
     public Hanoi(int size)
     {
-        stack1 = new HanoiDisc[size];
-        stack2 = new HanoiDisc[size];
-        stack3 = new HanoiDisc[size];
+        tower1 = new Tower(size);
+        tower2 = new Tower(size);
+        tower3 = new Tower(size);
         
         this.size = size;
         
@@ -41,24 +67,44 @@ public class Hanoi
         
         for(int i = 0; i < size; i ++)
         {
-            stack1[i] = new HanoiDisc(alphabet.charAt(size - i - 1));
+            tower1.addDisc(new HanoiDisc(alphabet.charAt(size - i - 1)));
         }
+        
+        
     }
+    
+    public void solve()
+    {
+    	swap(this.size, tower1, tower2, tower3);
+    }
+    
+    public void swap(int n, Tower src, Tower intermediate, Tower destination)
+    {
+    	if(n == 1)
+    	{
+    		destination.addDisc(src.removeTopDisc());
+    		return;
+    	}
+    	swap(n - 1, src, destination, intermediate);
+    	swap(n - 1, intermediate, src, destination);
+    }
+    
+    
     
     public void print()
     {
-        System.out.println("        *        *        *");
+        System.out.println("        *         *         *");
         
         for(int i = this.size - 1; i >=0; i --)
         {
-            String label1 = stack1[i] == null?" * ":"["+stack1[i].label+"]";
-            String label2 = stack2[i] == null?" * ":"["+stack2[i].label+"]";
-            String label3 = stack3[i] == null?" * ":"["+stack3[i].label+"]";
+        	String label1 = tower1.length <= i ? " * " : "["+tower1.getDisc(i).label+"]";
+            String label2 = tower2.length <= i ? " * " : "["+tower2.getDisc(i).label+"]";
+            String label3 = tower3.length <= i ? " * " : "["+tower3.getDisc(i).label+"]";
             
             System.out.println(
                     "       "+label1+
-                    "      "+label2+
-                    "      "+label3
+                    "       "+label2+
+                    "       "+label3
             );
         }
         System.out.println("    ********* ********* *********");
@@ -66,7 +112,10 @@ public class Hanoi
     
     public static void main(String[] args)
     {
-        Hanoi test = new Hanoi(3);
+        Hanoi test = new Hanoi(5);
         test.print();
+        test.solve();
+        test.print();
+
     }
 }
