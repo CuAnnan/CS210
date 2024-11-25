@@ -1,8 +1,6 @@
 package Lab7;
 
 
-
-
 class Node
 {
 	Node next;
