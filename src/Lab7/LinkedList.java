@@ -70,6 +70,20 @@ class Iterator
 		return this.current;
 	}
 	
+	public void insertBeforeCurrent(Student s)
+	{
+		if(this.current == list.getHead())
+		{
+			list.addToHead(s);
+			return;
+		}
+		Node studentNode = new Node(s);
+		this.previous.next = studentNode;
+		studentNode.setNext(this.current);
+		this.current = studentNode;
+		
+	}
+	
 	public Student getCurrentStudent()
 	{
 		return this.current.getStudent();
@@ -156,6 +170,7 @@ public class LinkedList
 			this.tail.setNext(next);
 			this.tail = next;
 		}
+		this.length ++;
 	}
 	
 	public Iterator getIterator()
@@ -174,6 +189,7 @@ public class LinkedList
 		{
 			this.head = this.head.next;
 		}
+		this.length --;
 	}
 	
 	

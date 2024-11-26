@@ -4,15 +4,15 @@ import java.util.Scanner;
 
 public class LabDriver
 {
-	static LinkedList l;
-	static Iterator i;
+	static LinkedList linkedList;
+	static Iterator iterator;
 	static Scanner sc;
 	static String key;
 	static String value;
 	
 	public static void printList()
 	{
-		Iterator i = l.getIterator();
+		Iterator i = linkedList.getIterator();
 		
 		while(i.hasNext())
 		{
@@ -25,16 +25,16 @@ public class LabDriver
 	
 	public static void populate()
 	{
-		l.addToTail(
+		linkedList.addToTail(
 			new Student().setAge(26).setDegree("CSSE").setYearOfStudy(2).setName("Bunny")
 		);
-		l.addToTail(
+		linkedList.addToTail(
 			new Student().setAge(18).setDegree("ARTS").setYearOfStudy(1).setName("Larry")
 		);
-		l.addToTail(
+		linkedList.addToTail(
 			new Student().setAge(32).setDegree("Computational Thinking").setYearOfStudy(4).setName("Steve")
 		);
-		i = l.getIterator();
+		iterator = linkedList.getIterator();
 	}
 	
 	public static boolean searchForStudent(String key, String value)
@@ -43,9 +43,9 @@ public class LabDriver
 		value = value.toLowerCase();
 		Student s = null;
 		boolean found = false;
-		while(!found && i.hasNext())
+		while(!found && iterator.hasNext())
 		{
-			s = i.getCurrent().getStudent();
+			s = iterator.getCurrent().getStudent();
 			switch(key)
 			{
 				case "name":
@@ -63,7 +63,7 @@ public class LabDriver
 			}
 			if(!found)
 			{
-				i.next();
+				iterator.next();
 			}
 		}
 		return found;
@@ -72,12 +72,40 @@ public class LabDriver
 	
 	public static void removeStudent()
 	{
-		i.removeCurrent();
+		iterator.removeCurrent();
 	}
 	
 	public static void printCurrentStudent()
 	{
-		System.out.println(i.getCurrentStudent().toString());
+		System.out.println(iterator.getCurrentStudent().toString());
+	}
+	
+	public static void addNewLink()
+	{
+		System.out.print("Enter name: ");
+		String name = sc.nextLine();
+		System.out.print("Enter course: ");
+		String course = sc.nextLine();
+		System.out.print("Enter age: ");
+		int age = Integer.parseInt(sc.nextLine());
+		System.out.print("Enter year of study: ");
+		int yearOfStudy = Integer.parseInt(sc.nextLine());
+		System.out.print("Enter position to insert at: ");
+		int listPosition = Integer.parseInt(sc.nextLine());
+		System.out.println(listPosition+", "+linkedList.getLength());
+		
+		if(listPosition > linkedList.getLength())
+		{
+			System.out.println("Position out of bounds");
+			return;
+		}
+		Student s = new Student().setName(name).setDegree(course).setAge(age).setYearOfStudy(yearOfStudy);
+		iterator.reset();
+		for(int i = 1; i <  listPosition; i++)
+		{
+			iterator.next();
+		}
+		iterator.insertBeforeCurrent(s);
 	}
 	
 	public static void operate()
@@ -88,6 +116,7 @@ public class LabDriver
 		
 		while(!input.equals(""))
 		{
+			System.out.print("Enter input: ");
 			input = sc.nextLine();
 			switch(input)
 			{
@@ -101,6 +130,9 @@ public class LabDriver
 				case "remove":
 					searchForStudent(key, value);
 					removeStudent();
+					break;
+				case "new link":
+					addNewLink();
 					break;
 				case "": break;
 				default:
@@ -124,7 +156,7 @@ public class LabDriver
 		sc = new Scanner(System.in);
 		
 		
-		l = new LinkedList();
+		linkedList = new LinkedList();
 		populate();
 		operate();
 		
