@@ -1,5 +1,6 @@
 package Recursion;
 
+import java.util.concurrent.TimeUnit;
 
 /**
  * Very primitive stack class to handle the towers themselves. This *could* have been done with just arrays but this provided some nice debugging potential.
@@ -136,6 +137,15 @@ public class Hanoi
      */
     public void swap(int n, Tower src, Tower intermediate, Tower destination)
     {
+        try
+        {
+            TimeUnit.MILLISECONDS.sleep(300);
+        }
+        catch (InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         // base case
         if(n == 0)
     	{
