@@ -1,36 +1,7 @@
 package Lab7;
 
 
-class Node
-{
-	Node next;
-	Student student;
-	
-	public Node(Student student)
-	{
-		this.student = student;
-	}
-	
-	public void setNext(Node next)
-	{
-		this.next = next;
-	}
-	
-	public boolean hasNext()
-	{
-		return this.next == null;
-	}
-	
-	public Node getNext()
-	{
-		return this.next;
-	}
-	
-	public Student getStudent()
-	{
-		return this.student;
-	}
-}
+
 
 class IteratorOutOfBoundsException extends Exception
 {
@@ -44,78 +15,6 @@ class IteratorOutOfBoundsException extends Exception
 	public IteratorOutOfBoundsException(String message)
 	{
 		super(message);
-	}
-}
-
-class Iterator
-{
-	private Node previous;
-	private Node current;
-	LinkedList list;
-	
-	
-	public Iterator(LinkedList list)
-	{
-		this.list = list;
-		this.reset();
-	}
-	
-	public boolean hasNext()
-	{
-		return this.current != null;
-	}
-	
-	public Node getCurrent()
-	{
-		return this.current;
-	}
-	
-	public void insertBeforeCurrent(Student s)
-	{
-		if(this.current == list.getHead())
-		{
-			list.addToHead(s);
-			return;
-		}
-		Node studentNode = new Node(s);
-		this.previous.next = studentNode;
-		studentNode.setNext(this.current);
-		this.current = studentNode;
-		
-	}
-	
-	public Student getCurrentStudent()
-	{
-		return this.current.getStudent();
-	}
-	
-	public void next()
-	{
-		this.previous = this.current;
-		this.current = this.current.next;
-	}
-	
-	public Node removeCurrent()
-	{
-		Node toRemove;
-		if(this.previous == null)
-		{
-			toRemove = this.list.getHead();
-			this.list.removeHead();
-		}
-		else
-		{
-			toRemove = current;
-			current.setNext(null);
-			this.previous.setNext(current.getNext());
-		}
-		return toRemove;
-	}
-	
-	public void reset()
-	{
-		this.previous = null;
-		this.current = this.list.getHead();
 	}
 }
 
