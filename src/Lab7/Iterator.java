@@ -2,10 +2,11 @@ package Lab7;
 
 public class Iterator
 {
-	private Node previous;
-	private Node current;
-	LinkedList list;
+	protected Node previous;
+	protected Node current;
+	protected LinkedList list;
 	
+	public Iterator() {}
 	
 	
 	public Iterator(LinkedList list)
