@@ -3,11 +3,12 @@ package Lab8;
 import Lab7.Student;
 import Lab7.Node;
 import Lab7.Iterator;
+import Lab7.LinkedList;
 
 public class Lab8Driver
 {
 	
-	public static void populate(IntegrityLinkedList list)
+	public static void populate(LinkedList list)
 	{
 		list.addToTail(
 			new Student().setAge(26).setDegree("CSSE").setYearOfStudy(2).setName("Bunny")
@@ -48,7 +49,7 @@ public class Lab8Driver
 		
 	}
 	
-	public static void createMalformation(IntegrityLinkedList list)
+	public static void createMalformation(LinkedList list)
 	{
 		Iterator iterator = list.getIterator();
 		
@@ -58,38 +59,29 @@ public class Lab8Driver
 		}
 		
 		
-		System.out.println("Creating malformation at node with integrity check value "+((IntegrityNode)iterator.getCurrent()).getIntegrityCheck()+":");
-		System.out.println(iterator.getCurrent().getStudent().toString());
 		Node toMalform = iterator.getCurrent();
+		System.out.println("Malforming from node "+toMalform.getIntegrityValue()+":");
+		System.out.println(toMalform.getStudent().toString());
 		iterator.reset();
 		for(int i = 0; i < 4; i++)
 		{
 			iterator.next();
 		}
-		Node toMalformTo = iterator.getCurrent();
 		
-		toMalform.setNext(toMalformTo);
-		System.out.println("Malforming to link to ");
+		Node toMalformTo = iterator.getCurrent();
+		System.out.println("To node "+toMalformTo.getIntegrityValue()+":");
 		System.out.println(toMalformTo.getStudent().toString());
+		toMalform.setNext(toMalformTo);
 	}
 	
-	public static void findMalformationUsingIntegrityCheck(IntegrityLinkedList list)
+	public static Node findMalformationUsingIntegrityCheck(LinkedList list)
 	{
-		IntegrityCheckResult result = list.performIntegrityCheck();
-		if(result.hasPassed())
-		{
-			System.out.println("No malformation detected");
-		}
-		else
-		{
-			System.out.println("Malformation found at node with integrity check value "+(result.getNode().getIntegrityCheck())+":");
-			System.out.println(result.getNode().getStudent().toString());
-		}
+		return list.findMalformedNode();
 	}
 	
-	public static void checkInsertBefore(IntegrityLinkedList l)
+	public static void checkInsertBefore(LinkedList l)
 	{
-		IntegrityIterator iter = l.getIterator();
+		Iterator iter = l.getIterator();
 		for(int i = 0; i < 5; i++)
 		{
 			iter.next();
@@ -97,26 +89,46 @@ public class Lab8Driver
 		iter.insertBeforeCurrent(
 			new Student().setAge(67).setDegree("French").setYearOfStudy(2).setName("Francois")
 		);
-
-	}	
+	}
+	
+	public static void checkIntegritySequence(LinkedList l)
+	{
+	    Iterator iter = l.getIterator();
+	    Node current = iter.getCurrent();
+	    while(current != null)
+	    {
+	        
+	    }
+	}
 	
 	public static void main(String[] args)
 	{
 		System.out.println("Test case");
-		IntegrityLinkedList malformed = new IntegrityLinkedList();
+		LinkedList malformed = new LinkedList();
 		populate(malformed);
-		malformed.debug();
-		checkInsertBefore(malformed);
 		
-		malformed.debug();
-//		createMalformation(malformed);
-//		findMalformationUsingIntegrityCheck(malformed);
-//		System.out.println();
-//		
-//		System.out.println("Control");
-//		IntegrityLinkedList properlyFormed = new IntegrityLinkedList();
-//		populate(properlyFormed);
-//		findMalformationUsingIntegrityCheck(properlyFormed);
+		createMalformation(malformed);
+		Node found = findMalformationUsingIntegrityCheck(malformed);
+		if(found != null)
+		{
+		    System.out.println("Malformation found at node "+found.getIntegrityValue()+":");
+		    System.out.println(found.getStudent().toString());
+		}
+		System.out.println();
+		
+		System.out.println("Control");
+		LinkedList properlyFormed = new LinkedList();
+		populate(properlyFormed);
+		found = findMalformationUsingIntegrityCheck(properlyFormed);
+		if(found != null)
+		{
+		    System.out.println("Control found a malformation at node "+found.getIntegrityValue()+":");
+            System.out.println(found.getStudent().toString());
+		}
+		else
+		{
+		    System.out.println("No malformation found");
+		}
 		
 	}
 }

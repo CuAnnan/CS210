@@ -4,10 +4,21 @@ public class Node
 {
 	Node next;
 	Student student;
+	int integrityValue;
 	
 	public Node(Student student)
 	{
 		this.student = student;
+	}
+	
+	public void setIntegrityValue(int integrityValue)
+	{
+	    this.integrityValue = integrityValue;
+	}
+	
+	public int getIntegrityValue()
+	{
+	    return this.integrityValue;
 	}
 	
 	public void setNext(Node next)
@@ -17,7 +28,7 @@ public class Node
 	
 	public boolean hasNext()
 	{
-		return this.next == null;
+		return this.next != null;
 	}
 	
 	public Node getNext()

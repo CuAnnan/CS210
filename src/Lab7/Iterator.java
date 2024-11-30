@@ -35,7 +35,13 @@ public class Iterator
 		Node studentNode = new Node(s);
 		this.previous.next = studentNode;
 		studentNode.setNext(this.current);
-		this.current = studentNode;
+		this.current = this.previous;
+		
+		
+		while(current.hasNext())
+		{
+		    current.next.integrityValue = current.integrityValue + 1;
+		}
 		
 	}
 	
@@ -53,17 +59,32 @@ public class Iterator
 	public Node removeCurrent()
 	{
 		Node toRemove;
+		Node toReset = null;
 		if(this.previous == null)
 		{
 			toRemove = this.list.getHead();
+			toReset = toRemove.next;
 			this.list.removeHead();
 		}
 		else
 		{
 			toRemove = current;
+			toReset = toRemove.next;
 			current.setNext(null);
 			this.previous.setNext(current.getNext());
 		}
+		
+		if(toReset != null)
+		{
+    		Node current = toReset;
+    		
+    		int currentIntegrityConstraint = current.integrityValue - 1;
+    		while(current.hasNext())
+    		{
+    		    current.integrityValue = currentIntegrityConstraint ++;
+    		}
+		}
+		
 		return toRemove;
 	}
 	

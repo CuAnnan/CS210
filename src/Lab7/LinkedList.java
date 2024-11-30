@@ -18,7 +18,10 @@ class IteratorOutOfBoundsException extends Exception
 	}
 }
 
-
+/**
+ * This is a Double Ended Singly Linked List class to store Student objects. Would normally use generics.
+ *  @author Éamonn Wing Kearns 60460770
+ */
 public class LinkedList
 {
 	private Node tail;
@@ -49,6 +52,7 @@ public class LinkedList
 			previous.setNext(this.head);
 			this.head = previous;
 		}
+		previous.setIntegrityValue(this.length);
 		this.length ++;
 	}
 	
@@ -69,6 +73,7 @@ public class LinkedList
 			this.tail.setNext(next);
 			this.tail = next;
 		}
+		next.setIntegrityValue(this.length);
 		this.length ++;
 	}
 	
@@ -82,6 +87,11 @@ public class LinkedList
 		return this.head;
 	}
 	
+	public Node getTail()
+	{
+	    return this.tail;
+	}
+	
 	protected void removeHead()
 	{
 		if(this.head != null)
@@ -91,6 +101,25 @@ public class LinkedList
 		this.length --;
 	}
 	
+	/**
+	 * A method to find any looping nodes
+	 * @return The node that causes the loop if there is any
+	 * 
+	 */
+	public Node findMalformedNode()
+	{
+	    Node current = this.head;
+	    Node malformed = null;
+	    while(malformed == null && current != null)
+	    {
+	        if(current.next != null && current.integrityValue > current.next.integrityValue)
+	        {
+	            malformed = current;
+	        }
+	        current = current.next;
+	    }
+	    return malformed;
+	}
 	
 	public int getLength()
 	{
