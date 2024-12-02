@@ -52,6 +52,7 @@ public class Maze
                 leftMost.addNeighbour(Direction.SOUTH, current);
             }
         }
+        
         this.topLeft.visited = true;
         this.topLeft.walk();
 //        this.topLeft.walls[Direction.SOUTH] = false; 
