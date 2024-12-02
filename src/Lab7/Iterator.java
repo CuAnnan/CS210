@@ -35,12 +35,14 @@ public class Iterator
 		Node studentNode = new Node(s);
 		this.previous.next = studentNode;
 		studentNode.setNext(this.current);
-		this.current = this.previous;
+		this.current = studentNode;
 		
+		Node current = this.previous;
 		
-		while(current.hasNext())
+		while(current.next != null)
 		{
 		    current.next.integrityValue = current.integrityValue + 1;
+		    current = current.next;
 		}
 		
 	}

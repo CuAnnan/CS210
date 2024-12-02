@@ -7,46 +7,26 @@ import Lab7.LinkedList;
 
 public class Lab8Driver
 {
+    
+    static String[] firstNames = {"Frank", "Aoife", "Larry", "Sean", "Mitchell", "Carlos", "Latitia", "Prue", "Ike", "Hotaru", "Kai", "Oscar", "Romeo", "Lisa", "Siobhan", "Naoise", "Stefany"};
+    static String[] courses = {"CSSE", "CSSEA", "General Science", "General Arts", "Maths", "Physics", "Astrophysics", "Bioinformatics", "Engineering", "Business", "Education"};
+    static String[] surnames = {"McNamara", "Ryan", "Carter", "Cunningham", "Nishino", "Franks", "Lewis"};
+    
+    
 	
-	public static void populate(LinkedList list)
+    public static void populate(LinkedList list)
 	{
-		list.addToTail(
-			new Student().setAge(26).setDegree("CSSE").setYearOfStudy(2).setName("Bunny")
-		);
-		list.addToTail(
-			new Student().setAge(18).setDegree("ARTS").setYearOfStudy(1).setName("Larry")
-		);
-		list.addToTail(
-			new Student().setAge(32).setDegree("Computational Thinking").setYearOfStudy(4).setName("Steve")
-		);
-		list.addToTail(
-			new Student().setAge(19).setDegree("ARTS").setYearOfStudy(5).setName("Frances")
-		);
-		list.addToTail(
-			new Student().setAge(23).setDegree("CSSE").setYearOfStudy(3).setName("Carl")
-		);
-		list.addToTail(
-			new Student().setAge(36).setDegree("Arts").setYearOfStudy(3).setName("Carly")
-		);
-		list.addToTail(
-				new Student().setAge(26).setDegree("CSSE").setYearOfStudy(2).setName("Bunny")
-		);
-		list.addToTail(
-			new Student().setAge(18).setDegree("ARTS").setYearOfStudy(1).setName("Larry")
-		);
-		list.addToTail(
-			new Student().setAge(32).setDegree("Computational Thinking").setYearOfStudy(4).setName("Steve")
-		);
-		list.addToTail(
-			new Student().setAge(19).setDegree("ARTS").setYearOfStudy(5).setName("Frances")
-		);
-		list.addToTail(
-			new Student().setAge(23).setDegree("CSSE").setYearOfStudy(3).setName("Carl")
-		);
-		list.addToTail(
-			new Student().setAge(36).setDegree("Arts").setYearOfStudy(3).setName("Carly")
-		);
-		
+        for(int i = 0; i < 100; i++)
+        {
+            list.addToTail(
+                new Student()
+                    .setAge((int)(Math.random()*60 + 10))
+                    .setDegree(courses[i%courses.length])
+                    .setName(
+                        firstNames[i%firstNames.length] + " "+surnames[i%surnames.length]
+                    )
+            );
+        }
 	}
 	
 	public static void createMalformation(LinkedList list)
@@ -79,25 +59,13 @@ public class Lab8Driver
 		return list.findMalformedNode();
 	}
 	
-	public static void checkInsertBefore(LinkedList l)
-	{
-		Iterator iter = l.getIterator();
-		for(int i = 0; i < 5; i++)
-		{
-			iter.next();
-		}
-		iter.insertBeforeCurrent(
-			new Student().setAge(67).setDegree("French").setYearOfStudy(2).setName("Francois")
-		);
-	}
-	
 	public static void checkIntegritySequence(LinkedList l)
 	{
-	    Iterator iter = l.getIterator();
-	    Node current = iter.getCurrent();
+	    Node current = l.getHead();
 	    while(current != null)
 	    {
-	        
+	        System.out.print(current.getIntegrityValue()+", ");
+	        current = current.getNext();
 	    }
 	}
 	
@@ -106,7 +74,6 @@ public class Lab8Driver
 		System.out.println("Test case");
 		LinkedList malformed = new LinkedList();
 		populate(malformed);
-		
 		createMalformation(malformed);
 		Node found = findMalformationUsingIntegrityCheck(malformed);
 		if(found != null)
@@ -117,9 +84,9 @@ public class Lab8Driver
 		System.out.println();
 		
 		System.out.println("Control");
-		LinkedList properlyFormed = new LinkedList();
-		populate(properlyFormed);
-		found = findMalformationUsingIntegrityCheck(properlyFormed);
+		LinkedList control = new LinkedList();
+		populate(control);
+		found = findMalformationUsingIntegrityCheck(control);
 		if(found != null)
 		{
 		    System.out.println("Control found a malformation at node "+found.getIntegrityValue()+":");
@@ -128,6 +95,7 @@ public class Lab8Driver
 		else
 		{
 		    System.out.println("No malformation found");
+		    checkIntegritySequence(control);
 		}
 		
 	}
