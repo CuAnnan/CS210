@@ -36,6 +36,33 @@ public class QuickSorter
 		return left;
 	}
 	
+	public static void quickSortMedian3(int[] toSort, int start, int end)
+	{
+		if(end <= start)
+		{
+			return;
+		}
+		
+		int middle = (start + end) / 2;
+		
+		if(toSort[start] > toSort[end])
+		{
+			swap(toSort, start, end);
+		}
+		if(toSort[end] > toSort[middle])
+		{
+			swap(toSort, end, middle);
+		}
+		if(toSort[start] < toSort[middle])
+		{
+			swap(toSort, start, middle);
+		}
+		int partitionIndex = doRightPartition(toSort, start, end);
+		quickSortMedian3(toSort, start, partitionIndex - 1);
+		quickSortMedian3(toSort, partitionIndex + 1, end);
+		
+	}
+	
 	public static void swap(int[] array, int a, int b)
 	{
 	    int tmp = array[a];

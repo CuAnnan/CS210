@@ -121,6 +121,16 @@ public class LinkedList
 	    return malformed;
 	}
 	
+	public void fixMalformation()
+	{
+		Node current = this.tail;
+		while(current.hasPrevious())
+		{
+			current.previous.next = current;
+			current = current.previous;
+		}
+	}
+	
 	public int getLength()
 	{
 		return this.length;

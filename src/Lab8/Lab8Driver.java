@@ -51,7 +51,7 @@ public class Lab8Driver
 		Node toMalformTo = iterator.getCurrent();
 		System.out.println("To node "+toMalformTo.getIntegrityValue()+":");
 		System.out.println(toMalformTo.getStudent().toString());
-		toMalform.setNext(toMalformTo);
+		toMalform.next = toMalformTo;
 	}
 	
 	public static Node findMalformationUsingIntegrityCheck(LinkedList list)
@@ -80,8 +80,19 @@ public class Lab8Driver
 		{
 		    System.out.println("Malformation found at node "+found.getIntegrityValue()+":");
 		    System.out.println(found.getStudent().toString());
+		    malformed.fixMalformation();
+		    found = findMalformationUsingIntegrityCheck(malformed);
+		    if(found == null)
+		    {
+		    	System.out.println("Malformation fixed");
+		    }
+		    else
+		    {
+		    	System.out.println(found.getStudent().toString());
+		    }
 		}
 		System.out.println();
+		
 		
 		System.out.println("Control");
 		LinkedList control = new LinkedList();
@@ -95,7 +106,6 @@ public class Lab8Driver
 		else
 		{
 		    System.out.println("No malformation found");
-		    checkIntegritySequence(control);
 		}
 		
 	}
