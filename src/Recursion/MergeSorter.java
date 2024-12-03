@@ -22,18 +22,33 @@ public class MergeSorter
     
     public static void merge(int[] toSort, int lowerBound, int mid, int upperBound)
     {
-        int i =0, j = 0, k = 0;
+        int i =0, j = 0, k = lowerBound;
         
+        int[] left = new int[mid - lowerBound];
+        System.arraycopy(toSort, lowerBound, left, 0, left.length);
         
-    }
-    
-    public static void main(String[] args)
-    {
-        int[] toSort = {15, 23, 1, 91, 23, 96, 13, 5, 2, 29};
-        mergeSortRecursive(toSort, 0, toSort.length);
-        for(int i = 0; i < toSort.length; i++)
+        int[] right = new int[upperBound - mid + 1];
+        System.arraycopy(toSort, mid, right, 0, right.length);
+        
+        while(i < left.length  && j < right.length)
         {
-            System.out.print(toSort[i]+(i < toSort.length - 1?", ":""));
+            if(left[i] < right[j])
+            {
+                toSort[k++] = left[i++];
+            }
+            else
+            {
+                toSort[k++] = right[j++];
+            }
+        }
+        
+        while(i < left.length)
+        {
+            toSort[k++] = left[i++];
+        }
+        while(j < right.length)
+        {
+            toSort[k++] = right[j++];
         }
     }
 }
