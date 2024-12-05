@@ -62,24 +62,31 @@ public class Maze
     
     public void draw()
     {
+    	
+    	
         Node current = this.topLeft;
         Node leftMost = current;
+        Node previous = null;
         while(current != null)
         {
             while(current != null)
             {
-            	System.out.print("█"+(current.walls[Direction.NORTH]?"█":" "));
+            	System.out.print(current.getNorthWall());
+            	previous = current;
             	current = current.getNeighbour(Direction.EAST);
             }
+            
             System.out.println("█");
+            
             current = leftMost;
             
             while(current != null)
             {
-                System.out.print((current.walls[Direction.WEST]?"█":" ")+" ");
+                System.out.print(current.getWestWall()+" ");
+                previous = current;
                 current = current.getNeighbour(Direction.EAST);
             }
-            System.out.println("█");
+            System.out.println(previous.getEastWall());
             
             if(leftMost.getNeighbour(Direction.SOUTH) != null)
             {
@@ -92,7 +99,7 @@ public class Maze
         
         while(current != null)
         {
-            System.out.print("██");
+            System.out.print(current.getSouthWall());
             current = current.getNeighbour(Direction.EAST);
         }
         System.out.println("█");

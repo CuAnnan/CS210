@@ -54,6 +54,169 @@ public class Node
         }
     }
     
+    public String getWestWall()
+    {
+    	return this.walls[Direction.WEST]?"│":" ";
+    }
+    
+    public String getEastWall()
+    {
+    	return this.walls[Direction.EAST]?"│":" ";
+    }
+    
+    public String getSouthWall()
+    {
+    	return this.getSouthWestWall()+(this.walls[Direction.SOUTH]?"─":" ");
+    }
+    
+    public String getSouthWestWall()
+    {
+    	char wall='┼';
+    	int wallsInCorner = 0B0;
+    	if(this.walls[Direction.SOUTH])
+    	{
+    		wallsInCorner += 0B0001; 
+    	}
+    	if(this.walls[Direction.WEST])
+    	{
+    		wallsInCorner += 0B0010;
+    	}
+    	if(this.neighbours[Direction.WEST]!= null && this.neighbours[Direction.WEST].hasWall(Direction.NORTH))
+    	{
+    		wallsInCorner += 0B0100;
+    	}
+    	if(this.neighbours[Direction.NORTH]!= null && this.neighbours[Direction.NORTH].hasWall(Direction.WEST))
+    	{
+    		wallsInCorner += 0B1000;
+    	}
+    	
+    	switch(wallsInCorner)
+    	{
+    		case 0b0001:
+    			wall = '╶';
+    			break;
+    		case 0b0010:
+    			wall = '│';
+    			break;
+    		case 0b0011:
+    			wall = '┌';
+    			break;
+    		case 0b0100:
+    			wall = '╴';
+    			break;
+    		case 0b0101:
+    			wall = '─';
+    			break;
+    		case 0b0110:
+    			wall = '┐';
+    			break;
+    		case 0b0111:
+    			wall = '┬';
+    			break;
+    		case 0b1000:
+    			wall = '╵';
+    			break;
+    		case 0b1001:
+    			wall = '└';
+    			break;
+    		case 0b1010:
+    			wall = '│';
+    			break;
+    		case 0b1011:
+    			wall = '├';
+    			break;
+    		case 0b1100:
+    			wall = '┘';
+    			break;
+    		case 0b1101:
+    			wall = '┴';
+    			break;
+    		case 0b1110:
+    			wall = '┤';
+    			break;
+    	}
+    	return ""+wall;
+    }
+    
+    public String getNorthWestWall()
+    {
+    	char wall='┼';
+    	int wallsInCorner = 0B0;
+    	if(this.walls[Direction.NORTH])
+    	{
+    		wallsInCorner += 0B0001; 
+    	}
+    	if(this.walls[Direction.WEST])
+    	{
+    		wallsInCorner += 0B0010;
+    	}
+    	if(this.neighbours[Direction.WEST]!= null && this.neighbours[Direction.WEST].hasWall(Direction.NORTH))
+    	{
+    		wallsInCorner += 0B0100;
+    	}
+    	if(this.neighbours[Direction.NORTH]!= null && this.neighbours[Direction.NORTH].hasWall(Direction.WEST))
+    	{
+    		wallsInCorner += 0B1000;
+    	}
+    	
+    	switch(wallsInCorner)
+    	{
+    		case 0b0001:
+    			wall = '╶';
+    			break;
+    		case 0b0010:
+    			wall = '│';
+    			break;
+    		case 0b0011:
+    			wall = '┌';
+    			break;
+    		case 0b0100:
+    			wall = '╴';
+    			break;
+    		case 0b0101:
+    			wall = '─';
+    			break;
+    		case 0b0110:
+    			wall = '┐';
+    			break;
+    		case 0b0111:
+    			wall = '┬';
+    			break;
+    		case 0b1000:
+    			wall = '╵';
+    			break;
+    		case 0b1001:
+    			wall = '└';
+    			break;
+    		case 0b1010:
+    			wall = '│';
+    			break;
+    		case 0b1011:
+    			wall = '├';
+    			break;
+    		case 0b1100:
+    			wall = '┘';
+    			break;
+    		case 0b1101:
+    			wall = '┴';
+    			break;
+    		case 0b1110:
+    			wall = '┤';
+    			break;
+    	}
+    	return ""+wall;
+    }
+    
+    public String getNorthWall()
+    {
+    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"─":" ");
+    }
+    
+    public boolean hasWall(int direction)
+    {
+    	return this.walls[direction];
+    }
+    
     public void visitFrom(int direction)
     {
         this.visited = true;
