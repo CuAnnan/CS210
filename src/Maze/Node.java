@@ -32,9 +32,14 @@ public class Node
         return neighbours[direction];
     }
     
+    public boolean hasNeighbour(int direction)
+    {
+    	return this.neighbours[direction] != null;
+    }
+    
     public void walk()
     {
-        int direction = this.getRandomUnvisitedDirection();
+    	int direction = this.getRandomUnvisitedDirection();
         
         if(direction < 0)
         {
@@ -42,12 +47,11 @@ public class Node
         }
         else
         {
-            System.out.println("Walking "+Direction.getName(direction));
-            this.walls[direction] = false;
+        	this.walls[direction] = false;
             this.neighbours[direction].visitFrom(Direction.getOpposite(direction));
             this.neighbours[direction].walk();
+            this.walk();
         }
-        
     }
     
     public void visitFrom(int direction)
@@ -55,6 +59,8 @@ public class Node
         this.visited = true;
         this.walls[direction] = false;
     }
+    
+    
     
     public int getRandomUnvisitedDirection()
     {
@@ -64,10 +70,6 @@ public class Node
         {
             Node n = this.neighbours[i];
             
-            if(n != null)
-            {
-                System.out.println(Direction.getName(i)+" visited:"+n.visited);
-            }
             if(n != null && !n.visited)
             {
                 unvisitedNeighbours++;

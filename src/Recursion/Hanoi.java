@@ -184,7 +184,7 @@ public class Hanoi
     
     public static void main(String[] args)
     {
-        Hanoi test = new Hanoi(5);
+        Hanoi test = new Hanoi(7);
         test.solve();
     }
 }

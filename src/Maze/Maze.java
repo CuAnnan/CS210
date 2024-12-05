@@ -8,7 +8,7 @@ public class Maze
     
     public Maze()
     {
-        this(10);
+        this(50);
     }
     
     public Maze(int size)
@@ -30,6 +30,7 @@ public class Maze
         Node current = this.topLeft;
         Node northNeighbour = null;
         
+        
         for(int height = 0; height < this.height; height++)
         {
             Node leftMost = current;
@@ -38,12 +39,12 @@ public class Maze
             {
                  Node neighbour = new Node();
                  current.addNeighbour(Direction.EAST, neighbour);
-                 current = neighbour;
                  if(northNeighbour != null)
                  {
-                     northNeighbour = northNeighbour.getNeighbour(Direction.EAST);
-                     current.addNeighbour(Direction.NORTH, neighbour);
+                	 northNeighbour = northNeighbour.getNeighbour(Direction.EAST);
+                     neighbour.addNeighbour(Direction.NORTH, northNeighbour);
                  }
+                 current = neighbour;
             }
             
             if(height < this.height - 1)
@@ -67,8 +68,8 @@ public class Maze
         {
             while(current != null)
             {
-                System.out.print("█"+(current.walls[Direction.NORTH]?"█":" "));
-                current = current.getNeighbour(Direction.EAST);
+            	System.out.print("█"+(current.walls[Direction.NORTH]?"█":" "));
+            	current = current.getNeighbour(Direction.EAST);
             }
             System.out.println("█");
             current = leftMost;
