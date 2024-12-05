@@ -66,81 +66,44 @@ public class Node
     
     public String getSouthWall()
     {
-    	return this.getSouthWestWall()+(this.walls[Direction.SOUTH]?"─":" ");
+    	return this.getSouthWestWall()+(this.walls[Direction.SOUTH]?"──":"  ")+(this.neighbours[Direction.EAST] == null?"┘":"");
     }
     
     public String getSouthWestWall()
     {
-    	char wall='┼';
-    	int wallsInCorner = 0B0;
-    	if(this.walls[Direction.SOUTH])
-    	{
-    		wallsInCorner += 0B0001; 
-    	}
-    	if(this.walls[Direction.WEST])
-    	{
-    		wallsInCorner += 0B0010;
-    	}
-    	if(this.neighbours[Direction.WEST]!= null && this.neighbours[Direction.WEST].hasWall(Direction.NORTH))
-    	{
-    		wallsInCorner += 0B0100;
-    	}
-    	if(this.neighbours[Direction.NORTH]!= null && this.neighbours[Direction.NORTH].hasWall(Direction.WEST))
-    	{
-    		wallsInCorner += 0B1000;
-    	}
+    	String wall="┴";
     	
-    	switch(wallsInCorner)
+    	
+    	if(this.neighbours[Direction.WEST] == null)
     	{
-    		case 0b0001:
-    			wall = '╶';
-    			break;
-    		case 0b0010:
-    			wall = '│';
-    			break;
-    		case 0b0011:
-    			wall = '┌';
-    			break;
-    		case 0b0100:
-    			wall = '╴';
-    			break;
-    		case 0b0101:
-    			wall = '─';
-    			break;
-    		case 0b0110:
-    			wall = '┐';
-    			break;
-    		case 0b0111:
-    			wall = '┬';
-    			break;
-    		case 0b1000:
-    			wall = '╵';
-    			break;
-    		case 0b1001:
-    			wall = '└';
-    			break;
-    		case 0b1010:
-    			wall = '│';
-    			break;
-    		case 0b1011:
-    			wall = '├';
-    			break;
-    		case 0b1100:
-    			wall = '┘';
-    			break;
-    		case 0b1101:
-    			wall = '┴';
-    			break;
-    		case 0b1110:
-    			wall = '┤';
-    			break;
+    		wall = "└";
     	}
-    	return ""+wall;
+    	else if(!this.walls[Direction.WEST])
+        {
+            wall = "─";
+        }
+            	
+    	return wall;
+    }
+    
+    public String getNorthEastEdgeWall()
+    {
+        String wall = "┤";
+        if(this.neighbours[Direction.NORTH] == null)
+        {
+            wall = "┐";
+        }
+        else if(!this.walls[Direction.NORTH])
+        {
+            wall = "│";
+        }
+        
+        return wall;
     }
     
     public String getNorthWestWall()
     {
-    	char wall='┼';
+    	String wall="┼";
     	int wallsInCorner = 0B0;
     	if(this.walls[Direction.NORTH])
     	{
@@ -162,46 +125,46 @@ public class Node
     	switch(wallsInCorner)
     	{
     		case 0b0001:
-    			wall = '╶';
+    			wall = "╶";
     			break;
     		case 0b0010:
-    			wall = '│';
+    			wall = "│";
     			break;
     		case 0b0011:
-    			wall = '┌';
+    			wall = "┌";
     			break;
     		case 0b0100:
-    			wall = '╴';
+    			wall = "╴";
     			break;
     		case 0b0101:
-    			wall = '─';
+    			wall = "─";
     			break;
     		case 0b0110:
-    			wall = '┐';
+    			wall = "┐";
     			break;
     		case 0b0111:
-    			wall = '┬';
+    			wall = "┬";
     			break;
     		case 0b1000:
-    			wall = '╵';
+    			wall = "╵";
     			break;
     		case 0b1001:
-    			wall = '└';
+    			wall = "└";
     			break;
     		case 0b1010:
-    			wall = '│';
+    			wall = "│";
     			break;
     		case 0b1011:
-    			wall = '├';
+    			wall = "├";
     			break;
     		case 0b1100:
-    			wall = '┘';
+    			wall = "┘";
     			break;
     		case 0b1101:
-    			wall = '┴';
+    			wall = "┴";
     			break;
     		case 0b1110:
-    			wall = '┤';
+    			wall = "┤";
     			break;
     	}
     	return ""+wall;
@@ -209,7 +172,7 @@ public class Node
     
     public String getNorthWall()
     {
-    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"─":" ");
+    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"──":"  ") + (this.neighbours[Direction.EAST]== null?this.getNorthEastEdgeWall():"");
     }
     
     public boolean hasWall(int direction)
