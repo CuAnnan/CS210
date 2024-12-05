@@ -1,10 +1,14 @@
 package Maze;
 
+import java.util.Random;
+
 public class Maze
 {
     int width;
     int height;
     Node topLeft;
+    Node bottomRight;
+    Random rng;
     
     public Maze()
     {
@@ -18,8 +22,16 @@ public class Maze
     
     public Maze(int width, int height)
     {
+        this(width, height, 1337);
+    }
+    
+    public Maze(int width, int height, long randomSeed)
+    {
         this.width = width;
         this.height = height;
+        
+        this.rng = new Random(randomSeed);
+        Node.rng = this.rng;
         
         this.construct();
     }
@@ -45,6 +57,7 @@ public class Maze
                      neighbour.addNeighbour(Direction.NORTH, northNeighbour);
                  }
                  current = neighbour;
+                 this.bottomRight = current;
             }
             
             if(height < this.height - 1)
@@ -56,6 +69,10 @@ public class Maze
         
         this.topLeft.visited = true;
         this.topLeft.walk();
+        this.topLeft.isStart = true;
+        this.bottomRight.isEnd = true;
+        this.topLeft.hasVisitor = true;
+        
 //        this.topLeft.walls[Direction.SOUTH] = false; 
 //        this.topLeft.getNeighbour(Direction.SOUTH).visitFrom(Direction.NORTH);
     }
@@ -81,7 +98,7 @@ public class Maze
             
             while(current != null)
             {
-                System.out.print(current.getWestWall()+"  ");
+                System.out.print(current.getWestWall()+current.getContents());
                 previous = current;
                 current = current.getNeighbour(Direction.EAST);
             }

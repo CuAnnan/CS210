@@ -8,6 +8,11 @@ public class Node
     int numberOfNeighbours;
     boolean[] walls;
     boolean visited;
+    boolean hasVisitor = false;
+    boolean isStart = false;
+    boolean isEnd = false;
+    static Random rng;
+    
     
     
     public Node()
@@ -56,31 +61,31 @@ public class Node
     
     public String getWestWall()
     {
-    	return this.walls[Direction.WEST]?"│":" ";
+    	return this.walls[Direction.WEST]?"┃":" ";
     }
     
     public String getEastWall()
     {
-    	return this.walls[Direction.EAST]?"│":" ";
+    	return this.walls[Direction.EAST]?"┃":" ";
     }
     
     public String getSouthWall()
     {
-    	return this.getSouthWestWall()+(this.walls[Direction.SOUTH]?"──":"  ")+(this.neighbours[Direction.EAST] == null?"┘":"");
+    	return this.getSouthWestWall()+(this.walls[Direction.SOUTH]?"━":" ")+(this.neighbours[Direction.EAST] == null?"┛":"");
     }
     
     public String getSouthWestWall()
     {
-    	String wall="┴";
+    	String wall="┻";
     	
     	
     	if(this.neighbours[Direction.WEST] == null)
     	{
-    		wall = "└";
+    		wall = "┗";
     	}
     	else if(!this.walls[Direction.WEST])
         {
-            wall = "─";
+            wall = "━";
         }
             	
     	return wall;
@@ -88,14 +93,14 @@ public class Node
     
     public String getNorthEastEdgeWall()
     {
-        String wall = "┤";
+        String wall = "┫";
         if(this.neighbours[Direction.NORTH] == null)
         {
-            wall = "┐";
+            wall = "┓";
         }
         else if(!this.walls[Direction.NORTH])
         {
-            wall = "│";
+            wall = "┃";
         }
         
         return wall;
@@ -103,7 +108,7 @@ public class Node
     
     public String getNorthWestWall()
     {
-    	String wall="┼";
+    	String wall="╋";
     	int wallsInCorner = 0B0;
     	if(this.walls[Direction.NORTH])
     	{
@@ -125,46 +130,46 @@ public class Node
     	switch(wallsInCorner)
     	{
     		case 0b0001:
-    			wall = "╶";
+    			wall = "╺";
     			break;
     		case 0b0010:
-    			wall = "│";
+    			wall = "╻";
     			break;
     		case 0b0011:
-    			wall = "┌";
+    			wall = "┏";
     			break;
     		case 0b0100:
-    			wall = "╴";
+    			wall = "╸";
     			break;
     		case 0b0101:
-    			wall = "─";
+    			wall = "━";
     			break;
     		case 0b0110:
-    			wall = "┐";
+    			wall = "┓";
     			break;
     		case 0b0111:
-    			wall = "┬";
+    			wall = "┳";
     			break;
     		case 0b1000:
-    			wall = "╵";
+    			wall = "╹";
     			break;
     		case 0b1001:
-    			wall = "└";
+    			wall = "┗";
     			break;
     		case 0b1010:
-    			wall = "│";
+    			wall = "┃";
     			break;
     		case 0b1011:
-    			wall = "├";
+    			wall = "┣";
     			break;
     		case 0b1100:
-    			wall = "┘";
+    			wall = "┛";
     			break;
     		case 0b1101:
-    			wall = "┴";
+    			wall = "┻";
     			break;
     		case 0b1110:
-    			wall = "┤";
+    			wall = "┫";
     			break;
     	}
     	return ""+wall;
@@ -172,7 +177,24 @@ public class Node
     
     public String getNorthWall()
     {
-    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"──":"  ") + (this.neighbours[Direction.EAST]== null?this.getNorthEastEdgeWall():"");
+    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"━":" ") + (this.neighbours[Direction.EAST]== null?this.getNorthEastEdgeWall():"");
+    }
+    
+    public String getContents()
+    {
+        if(this.hasVisitor)
+        {
+            return "*";
+        }
+        if(this.isStart)
+        {
+            return "S";
+        }
+        if(this.isEnd)
+        {
+            return "E";
+        }
+        return " ";
     }
     
     public boolean hasWall(int direction)
@@ -219,8 +241,7 @@ public class Node
             }
         }
         
-        Random r = new Random();
-        int index = r.nextInt(unvisited.length);
+        int index = rng.nextInt(unvisited.length);
         return unvisited[index];
     }
     
