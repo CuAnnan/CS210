@@ -1,6 +1,7 @@
 package Lab9;
-
-import java.util.Random;
+//
+//import java.util.Random;
+import java.util.Scanner;
 
 public class ArraySorting
 {
@@ -44,7 +45,7 @@ public class ArraySorting
     
     public static void doQuickSortingMedian3(int[] unsorted)
     {
-    	System.out.println("Quick Sorting");
+    	System.out.println("Quick Sorting Median3");
         int[] toSort = new int[unsorted.length];
         System.arraycopy(unsorted, 0, toSort, 0, unsorted.length);
         System.out.println("Unsorted");
@@ -56,17 +57,46 @@ public class ArraySorting
         printArray(toSort);
     }
     
+    public static Scanner getScanner(boolean useSysin)
+    {
+        Scanner sc = null;
+        if(useSysin)
+        {
+            sc = new Scanner(System.in);
+        }
+        else
+        {
+            sc = new Scanner("20\n92 35 1 33 23 96 17 37 29 18 74 1214 93 75 2 8 7 17 2 12 5 921");
+        }
+        return sc;    
+    }
+    
     public static void main(String[] args)
     {
-        int[] unsorted = new int[10000000];
-        Random r = new Random(156879883546891348L);
-        for(int i = 0 ; i < unsorted.length; i++)
+        int[] unsorted;
+        Scanner sc = getScanner(false);
+        
+        System.out.println("Enter array size: ");
+        int size = Integer.parseInt(sc.nextLine());
+        unsorted = new int[size];
+        
+        System.out.println("Enter space separated ints:");
+        Scanner intScanner = new Scanner(sc.nextLine());
+        int i = 0;
+        while(i < size)
         {
-            unsorted[i] = r.nextInt(1, 1000);
+            unsorted[i++] = intScanner.nextInt();
         }
-        printArray(unsorted);
+        
+        System.out.println();
+        
         doMergeSorting(unsorted);
+        System.out.println();
         doQuickSorting(unsorted);
+        System.out.println();
         doQuickSortingMedian3(unsorted);
+        
+        intScanner.close();
+        sc.close();
     }
 }
