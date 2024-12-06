@@ -13,6 +13,9 @@ public class Node
     boolean isEnd = false;
     static Random rng;
     
+    boolean explored = false;
+    boolean exploring = false;
+    
     
     
     public Node()
@@ -184,16 +187,17 @@ public class Node
     {
         if(this.hasVisitor)
         {
-            return "*";
+            return Color.Background.BLUE+Color.Foreground.Bold.Bright.CYAN+"*"+Color.RESET;
         }
         if(this.isStart)
         {
-            return "S";
+            return Color.Foreground.RED+"S"+Color.RESET;
         }
         if(this.isEnd)
         {
-            return "E";
+            return Color.Background.RED+""+Color.Foreground.Bold.Bright.YELLOW+"E"+Color.RESET;
         }
+        
         return " ";
     }
     

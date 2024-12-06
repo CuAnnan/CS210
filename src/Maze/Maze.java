@@ -10,6 +10,7 @@ public class Maze
     Node bottomRight;
     Random rng;
     
+    
     public Maze()
     {
         this(50);
@@ -79,13 +80,12 @@ public class Maze
     
     public void draw()
     {
-    	System.out.println("Version 1.0a");
-    	
-        Node current = this.topLeft;
+    	Node current = this.topLeft;
         Node leftMost = current;
         Node previous = null;
         while(current != null)
         {
+            
             while(current != null)
             {
             	System.out.print(current.getNorthWall());
