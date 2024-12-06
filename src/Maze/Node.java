@@ -13,10 +13,9 @@ public class Node
     boolean isEnd = false;
     static Random rng;
     
+    
     boolean explored = false;
     boolean exploring = false;
-    
-    
     
     public Node()
     {
@@ -252,5 +251,43 @@ public class Node
     public boolean isVisited()
     {
         return this.visited;
+    }
+    
+    public int getUnexploredNeighbourCount()
+    {
+    	int n = 0;
+    	for(int i = 0; i < this.walls.length; i++)
+    	{
+    		if(!this.walls[i] && !this.neighbours[i].explored)
+    		{
+    			n++;
+    		}
+    	}
+    	return n;
+    }
+    
+    public boolean hasUnexploredNeighbours()
+    {
+    	return this.getUnexploredNeighbourCount() > 0;
+    }
+    
+    public Node getRandomUnexploredNeighbour()
+    {
+    	int n = this.getUnexploredNeighbourCount();
+    	if(n == 0)
+    	{
+    		return null;
+    	}
+    	
+    	Node[] unexplored = new Node[n];
+    	int i = 0;
+    	for(int j = 0; j < this.walls.length; j++)
+    	{
+    		if(!this.walls[j] && !this.neighbours[j].explored)
+    		{
+    			unexplored[i++] = this.neighbours[j];
+    		}
+    	}
+    	return unexplored[rng.nextInt(0, n - 1)];
     }
 }

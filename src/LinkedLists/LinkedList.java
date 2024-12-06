@@ -212,6 +212,11 @@ public class LinkedList<T>
         this.addToTail(content);
     }
     
+    public void push(T content)
+    {
+    	this.addToHead(content);
+    }
+    
     /**
      * A shortcut method. By default if we're adding, we add to the tail. By convention.
      */
@@ -244,6 +249,13 @@ public class LinkedList<T>
             searchIndex ++;
         }while(current.hasNext() && index == -1);
         return index;
+    }
+    
+    public T pop()
+    {
+    	T value = this.head.getContents();
+    	this.head = this.head.next;
+    	return value;
     }
     
     /**

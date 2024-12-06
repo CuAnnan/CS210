@@ -121,4 +121,14 @@ public class Maze
         
         
     }
+    
+    public Node getStartNode()
+    {
+    	return this.topLeft;
+    }
+    
+    public Node getEndNode()
+    {
+    	return this.bottomRight;
+    }
 }
