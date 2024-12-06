@@ -6,36 +6,59 @@ public class Explorer
 {
 	Cell current;
 	Maze maze;
-	LinkedList<Cell> visited;
+	LinkedList<Cell> searchPath;
 	Cell lastBranch;
 	boolean endCellFound;
 	
 	public Explorer(Maze maze)
 	{
 		this.maze = maze;
-		visited = new LinkedList<Cell>();
+		searchPath = new LinkedList<Cell>();
 		current = maze.getStartNode();
 		lastBranch = current;
-		visited.push(current);
+		searchPath.push(current);
+	}
+	
+	public void startExploring()
+	{
+	    long startTime = System.currentTimeMillis();
+	    this.explore();
+	    long solveTime = System.currentTimeMillis();
+	    System.out.println((solveTime - startTime) +"ms to solve");
+	    this.markExplored();
+	    long markTime = System.currentTimeMillis();
+	    System.out.println((markTime - solveTime)+ "ms to update search path");
 	}
 	
 	public void explore()
 	{
 		if(current == maze.getEndNode())
 		{
-			this.endCellFound = true;
 			return;
 		}
 		if(current.hasUnexploredNeighbours())
 		{
 		    Cell neighbour = current.getRandomUnexploredNeighbour();
-		    this.visited.push(neighbour);
+		    this.searchPath.push(neighbour);
+		    neighbour.explored = true;
 		    this.current = neighbour;
 		    this.explore();
 		}
 		else
 		{
-		     
+		    this.searchPath.pop();
+		    this.current = this.searchPath.getHead().getContents();
+		    this.explore();
 		}
+	}
+	
+	public void markExplored()
+	{
+	    Cell current = this.searchPath.pop();
+	    while(current != null)
+	    {
+	        current.solution = true;
+	        current = this.searchPath.pop();
+	    }
 	}
 }

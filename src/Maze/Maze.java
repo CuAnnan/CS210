@@ -9,6 +9,7 @@ public class Maze
     Cell topLeft;
     Cell bottomRight;
     Random rng;
+    boolean randomSeeded = false;
     
     
     public Maze()
@@ -23,7 +24,7 @@ public class Maze
     
     public Maze(int width, int height)
     {
-        this(width, height, 1337);
+        this(width, height, 0);
     }
     
     public Maze(int width, int height, long randomSeed)
@@ -31,7 +32,14 @@ public class Maze
         this.width = width;
         this.height = height;
         
-        this.rng = new Random(randomSeed);
+        if(this.randomSeeded)
+        {
+            this.rng = new Random(randomSeed);
+        }
+        else
+        {
+            this.rng = new Random();
+        }
         Cell.rng = this.rng;
         
         this.construct();
@@ -72,7 +80,6 @@ public class Maze
         this.topLeft.walk();
         this.topLeft.isStart = true;
         this.bottomRight.isEnd = true;
-        this.topLeft.hasVisitor = true;
         
 //        this.topLeft.walls[Direction.SOUTH] = false; 
 //        this.topLeft.getNeighbour(Direction.SOUTH).visitFrom(Direction.NORTH);
@@ -118,8 +125,7 @@ public class Maze
             System.out.print(current.getSouthWall());
             current = current.getNeighbour(Direction.EAST);
         }
-        
-        
+        System.out.println();
     }
     
     public Cell getStartNode()

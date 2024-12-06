@@ -8,14 +8,12 @@ public class Cell
     int numberOfNeighbours;
     boolean[] walls;
     boolean visited;
-    boolean hasVisitor = false;
     boolean isStart = false;
     boolean isEnd = false;
     static Random rng;
     
-    
     boolean explored = false;
-    boolean exploring = false;
+    boolean solution = false;
     
     public Cell()
     {
@@ -63,7 +61,7 @@ public class Cell
     
     public String getWestWall()
     {
-    	return this.walls[Direction.WEST]?"┃":" ";
+    	return this.walls[Direction.WEST]?"┃":((this.solution && this.neighbours[Direction.WEST].solution)?Color.Background.Bright.BLACK:"")+" "+Color.RESET;
     }
     
     public String getEastWall()
@@ -179,25 +177,21 @@ public class Cell
     
     public String getNorthWall()
     {
-    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"━":" ") + (this.neighbours[Direction.EAST]== null?this.getNorthEastEdgeWall():"");
+    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"━":(this.solution && this.neighbours[Direction.NORTH].solution?Color.Background.Bright.BLACK:"")+" "+Color.RESET) + (this.neighbours[Direction.EAST]== null?this.getNorthEastEdgeWall():"");
     }
     
     public String getContents()
     {
-        if(this.hasVisitor)
-        {
-            return Color.Background.BLUE+Color.Foreground.Bold.Bright.CYAN+"*"+Color.RESET;
-        }
         if(this.isStart)
         {
-            return Color.Foreground.RED+"S"+Color.RESET;
+            return Color.Background.RED+""+Color.Foreground.Bold.Bright.YELLOW+"S"+Color.RESET;
         }
         if(this.isEnd)
         {
             return Color.Background.RED+""+Color.Foreground.Bold.Bright.YELLOW+"E"+Color.RESET;
         }
         
-        return " ";
+        return (this.solution?Color.Background.Bright.BLACK:"")+" "+Color.RESET;
     }
     
     public boolean hasWall(int direction)
@@ -288,6 +282,6 @@ public class Cell
     			unexplored[i++] = this.neighbours[j];
     		}
     	}
-    	return unexplored[rng.nextInt(0, n - 1)];
+    	return unexplored[rng.nextInt(0, n)];
     }
 }
