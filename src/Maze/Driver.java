@@ -7,7 +7,7 @@ public class Driver
     {
         Maze maze = new Maze(60, 10);
         maze.draw();
-        MazeExplorer explorer = new MazeExplorer(maze);
+        Explorer explorer = new Explorer(maze);
         
     }
 }

@@ -2,9 +2,9 @@ package Maze;
 
 import java.util.Random;
 
-public class Node
+public class Cell
 {
-    Node[] neighbours;
+    Cell[] neighbours;
     int numberOfNeighbours;
     boolean[] walls;
     boolean visited;
@@ -17,15 +17,15 @@ public class Node
     boolean explored = false;
     boolean exploring = false;
     
-    public Node()
+    public Cell()
     {
-        neighbours = new Node[] {null, null, null, null};
+        neighbours = new Cell[] {null, null, null, null};
         this.walls = new boolean[] {true, true, true, true};
         this.numberOfNeighbours = 0;
         this.visited = false;
     }
     
-    public void addNeighbour(int direction, Node neighbour)
+    public void addNeighbour(int direction, Cell neighbour)
     {
         neighbours[direction] = neighbour;
         if(neighbour != null)
@@ -34,7 +34,7 @@ public class Node
         }
     }
     
-    public Node getNeighbour(int direction)
+    public Cell getNeighbour(int direction)
     {
         return neighbours[direction];
     }
@@ -219,7 +219,7 @@ public class Node
         
         for(int i = 0; i < this.neighbours.length; i++)
         {
-            Node n = this.neighbours[i];
+            Cell n = this.neighbours[i];
             
             if(n != null && !n.visited)
             {
@@ -236,7 +236,7 @@ public class Node
         unvisitedNeighbours = 0;
         for(int i = 0; i < this.neighbours.length; i++)
         {
-            Node n = this.neighbours[i];
+            Cell n = this.neighbours[i];
             if(n != null && !n.visited)
             {
                 unvisited[unvisitedNeighbours] = i;
@@ -271,7 +271,7 @@ public class Node
     	return this.getUnexploredNeighbourCount() > 0;
     }
     
-    public Node getRandomUnexploredNeighbour()
+    public Cell getRandomUnexploredNeighbour()
     {
     	int n = this.getUnexploredNeighbourCount();
     	if(n == 0)
@@ -279,7 +279,7 @@ public class Node
     		return null;
     	}
     	
-    	Node[] unexplored = new Node[n];
+    	Cell[] unexplored = new Cell[n];
     	int i = 0;
     	for(int j = 0; j < this.walls.length; j++)
     	{

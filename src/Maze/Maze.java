@@ -6,8 +6,8 @@ public class Maze
 {
     int width;
     int height;
-    Node topLeft;
-    Node bottomRight;
+    Cell topLeft;
+    Cell bottomRight;
     Random rng;
     
     
@@ -32,25 +32,25 @@ public class Maze
         this.height = height;
         
         this.rng = new Random(randomSeed);
-        Node.rng = this.rng;
+        Cell.rng = this.rng;
         
         this.construct();
     }
     
     private void construct()
     {
-        this.topLeft = new Node();
-        Node current = this.topLeft;
-        Node northNeighbour = null;
+        this.topLeft = new Cell();
+        Cell current = this.topLeft;
+        Cell northNeighbour = null;
         
         
         for(int height = 0; height < this.height; height++)
         {
-            Node leftMost = current;
+            Cell leftMost = current;
             northNeighbour = current.getNeighbour(Direction.NORTH);
             for(int width = 1; width < this.width; width++)
             {
-                 Node neighbour = new Node();
+                 Cell neighbour = new Cell();
                  current.addNeighbour(Direction.EAST, neighbour);
                  if(northNeighbour != null)
                  {
@@ -63,7 +63,7 @@ public class Maze
             
             if(height < this.height - 1)
             {
-                current = new Node();
+                current = new Cell();
                 leftMost.addNeighbour(Direction.SOUTH, current);
             }
         }
@@ -80,9 +80,9 @@ public class Maze
     
     public void draw()
     {
-    	Node current = this.topLeft;
-        Node leftMost = current;
-        Node previous = null;
+    	Cell current = this.topLeft;
+        Cell leftMost = current;
+        Cell previous = null;
         while(current != null)
         {
             
@@ -122,12 +122,12 @@ public class Maze
         
     }
     
-    public Node getStartNode()
+    public Cell getStartNode()
     {
     	return this.topLeft;
     }
     
-    public Node getEndNode()
+    public Cell getEndNode()
     {
     	return this.bottomRight;
     }
