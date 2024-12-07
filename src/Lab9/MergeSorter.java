@@ -1,9 +1,9 @@
 package Lab9;
 
-public class MergeSorter
+public class MergeSorter extends Sorter
 {
     
-	/*
+    /*
 	 * This should actually be done via moving the indices, not arraycopying
 	 */
     public static void mergeSortRecursive(int[] toSort, int lowerBound, int upperBound)

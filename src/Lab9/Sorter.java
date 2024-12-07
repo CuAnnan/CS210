@@ -1,6 +1,6 @@
-package Recursion;
+package Lab9;
 
-public class Sorter
+public abstract class Sorter
 {
-
+    static boolean sortAscending = true;
 }

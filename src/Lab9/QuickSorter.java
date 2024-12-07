@@ -1,6 +1,6 @@
 package Lab9;
 
-public class QuickSorter
+public class QuickSorter extends Sorter
 {
 	public static void quickSortRight(int[] toSort, int start, int end)
 	{
@@ -9,9 +9,14 @@ public class QuickSorter
 			return;
 		}
 		
-		int partitionIndex = doRightPartition(toSort, start, end);
+		int partitionIndex = doPartition(toSort, start, end);
 		quickSortRight(toSort, start, partitionIndex - 1);
 		quickSortRight(toSort, partitionIndex + 1, end);
+	}
+	
+	public static int doPartition(int[] toSort, int start, int end)
+	{
+	    return doRightPartition(toSort, start, end);
 	}
 	
 	public static int doRightPartition(int[] toSort, int start, int end)
@@ -23,8 +28,8 @@ public class QuickSorter
 		
 		while(true)
 		{
-		    while(toSort[++left] < pivot) {};
-			while(right > 0 && toSort[--right] > pivot) {};
+		    while(left < toSort.length - 1 && toSort[++left] < pivot == sortAscending) {};
+			while(right > 0 && toSort[--right] > pivot == sortAscending) {};
 			if(left >= right)
 			{
 				break;
@@ -45,19 +50,19 @@ public class QuickSorter
 		
 		int middle = (start + end) / 2;
 		
-		if(toSort[start] > toSort[end])
+		if(toSort[start] > toSort[end] == sortAscending)
 		{
 			swap(toSort, start, end);
 		}
-		if(toSort[end] > toSort[middle])
+		if(toSort[end] > toSort[middle] == sortAscending)
 		{
 			swap(toSort, end, middle);
 		}
-		if(toSort[start] < toSort[middle])
+		if(toSort[start] < toSort[middle] == sortAscending)
 		{
 			swap(toSort, start, middle);
 		}
-		int partitionIndex = doRightPartition(toSort, start, end);
+		int partitionIndex = doPartition(toSort, start, end);
 		quickSortMedian3(toSort, start, partitionIndex - 1);
 		quickSortMedian3(toSort, partitionIndex + 1, end);
 		

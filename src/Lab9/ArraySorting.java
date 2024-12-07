@@ -76,6 +76,8 @@ public class ArraySorting
         int[] unsorted;
         Scanner sc = getScanner(false);
         
+        Sorter.sortAscending = false;
+        
         System.out.println("Enter array size: ");
         int size = Integer.parseInt(sc.nextLine());
         unsorted = new int[size];
