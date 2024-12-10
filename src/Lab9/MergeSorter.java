@@ -31,7 +31,7 @@ public class MergeSorter extends Sorter
         
         while(i < left.length  && j < right.length)
         {
-            if(left[i] < right[j])
+            if(left[i] < right[j] == sortAscending)
             {
                 toSort[k++] = left[i++];
             }
