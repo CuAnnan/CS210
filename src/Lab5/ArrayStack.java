@@ -100,6 +100,7 @@ public class ArrayStack<T>
 	/**
 	 * Debug method
 	 */
+	@SuppressWarnings("unchecked")
 	public void debug()
 	{
 		System.out.println("Top: "+top+"\nContents: ");

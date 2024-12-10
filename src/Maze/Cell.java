@@ -11,6 +11,7 @@ public class Cell
     boolean isStart = false;
     boolean isEnd = false;
     static Random rng;
+    boolean isDeadEnd = false;
     
     boolean explored = false;
     boolean solution = false;
@@ -108,7 +109,6 @@ public class Cell
     
     public String getNorthWestWall()
     {
-    	String wall="╋";
     	int wallsInCorner = 0B0;
     	if(this.walls[Direction.NORTH])
     	{
@@ -126,53 +126,12 @@ public class Cell
     	{
     		wallsInCorner += 0B1000;
     	}
+
+        String[] wallStrings = {
+            "*","╺","╻","┏","╸","━","┓","┳","╹","┗","┃","┣","┛","┻","┫","╋"
+        };
     	
-    	switch(wallsInCorner)
-    	{
-    		case 0b0001:
-    			wall = "╺";
-    			break;
-    		case 0b0010:
-    			wall = "╻";
-    			break;
-    		case 0b0011:
-    			wall = "┏";
-    			break;
-    		case 0b0100:
-    			wall = "╸";
-    			break;
-    		case 0b0101:
-    			wall = "━";
-    			break;
-    		case 0b0110:
-    			wall = "┓";
-    			break;
-    		case 0b0111:
-    			wall = "┳";
-    			break;
-    		case 0b1000:
-    			wall = "╹";
-    			break;
-    		case 0b1001:
-    			wall = "┗";
-    			break;
-    		case 0b1010:
-    			wall = "┃";
-    			break;
-    		case 0b1011:
-    			wall = "┣";
-    			break;
-    		case 0b1100:
-    			wall = "┛";
-    			break;
-    		case 0b1101:
-    			wall = "┻";
-    			break;
-    		case 0b1110:
-    			wall = "┫";
-    			break;
-    	}
-    	return ""+wall;
+    	return wallStrings[wallsInCorner];
     }
     
     public String getNorthWall()

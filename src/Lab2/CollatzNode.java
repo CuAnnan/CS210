@@ -1,7 +1,5 @@
 package Lab2;
 
-import Node.Node;
-
 /**
  * A class to contain the values for a collatz sequence entry It's just a POJO though.
  */

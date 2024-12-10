@@ -10,6 +10,7 @@ public class Maze
     Cell bottomRight;
     Random rng;
     boolean randomSeeded = false;
+    int backFillAmount = 0;
     
     
     public Maze()
@@ -26,8 +27,13 @@ public class Maze
     {
         this(width, height, 0);
     }
+
+    public Maze(int width, int height, int backFillAmount)
+    {
+        this(width, height, backFillAmount,0);
+    }
     
-    public Maze(int width, int height, long randomSeed)
+    public Maze(int width, int height, int backFillAmount, long randomSeed)
     {
         this.width = width;
         this.height = height;
@@ -41,7 +47,7 @@ public class Maze
             this.rng = new Random();
         }
         Cell.rng = this.rng;
-        
+        this.backFillAmount = backFillAmount;
         this.construct();
     }
     
@@ -77,12 +83,9 @@ public class Maze
         }
         
         this.topLeft.visited = true;
-        this.topLeft.walk();
         this.topLeft.isStart = true;
         this.bottomRight.isEnd = true;
-        
-//        this.topLeft.walls[Direction.SOUTH] = false; 
-//        this.topLeft.getNeighbour(Direction.SOUTH).visitFrom(Direction.NORTH);
+        this.topLeft.walk();
     }
     
     public void draw()

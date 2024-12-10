@@ -46,6 +46,7 @@ public class Explorer
 		}
 		else
 		{
+			this.current.isDeadEnd = true;
 		    this.searchPath.pop();
 		    this.current = this.searchPath.getHead().getContents();
 		    this.explore();
