@@ -1,4 +1,5 @@
 package Lab9;
+import java.util.Random;
 //
 //import java.util.Random;
 import java.util.Scanner;
@@ -14,48 +15,48 @@ public class ArraySorting
         System.out.println(someArray[someArray.length - 1]);
     }
     
-    public static void doMergeSorting(int[] unsorted)
-    {
-        System.out.println("Merge Sorting");
-        
-        int[] toSort = new int[unsorted.length];
-        System.arraycopy(unsorted, 0, toSort, 0, unsorted.length);
-        System.out.println("Unsorted");
-        printArray(toSort);
-        long start = System.currentTimeMillis();
-        MergeSorter.mergeSortRecursive(toSort, 0, toSort.length - 1);
-        long time = System.currentTimeMillis() - start;
-        System.out.println("Sorted in "+time+" ms");
-        printArray(toSort);
-    }
-    
-    public static void doQuickSorting(int[] unsorted)
-    {
-        System.out.println("Quick Sorting");
-        int[] toSort = new int[unsorted.length];
-        System.arraycopy(unsorted, 0, toSort, 0, unsorted.length);
-        System.out.println("Unsorted");
-        printArray(toSort);
-        long start = System.currentTimeMillis();
-        QuickSorter.quickSortRight(toSort, 0, toSort.length - 1);
-        long time = System.currentTimeMillis() - start;
-        System.out.println("Sorted in "+time+" ms");
-        printArray(toSort);
-    }
-    
-    public static void doQuickSortingMedian3(int[] unsorted)
-    {
-    	System.out.println("Quick Sorting Median3");
-        int[] toSort = new int[unsorted.length];
-        System.arraycopy(unsorted, 0, toSort, 0, unsorted.length);
-        System.out.println("Unsorted");
-        printArray(toSort);
-        long start = System.currentTimeMillis();
-        QuickSorter.quickSortMedian3(toSort, 0, toSort.length - 1);
-        long time = System.currentTimeMillis() - start;
-        System.out.println("Sorted in "+time+" ms");
-        printArray(toSort);
-    }
+//    public static void doMergeSorting(int[] unsorted)
+//    {
+//        System.out.println("Merge Sorting");
+//        
+//        int[] toSort = new int[unsorted.length];
+//        System.arraycopy(unsorted, 0, toSort, 0, unsorted.length);
+//        System.out.println("Unsorted");
+//        printArray(toSort);
+//        long start = System.currentTimeMillis();
+//        MergeSorter.mergeSortRecursive(toSort, 0, toSort.length - 1);
+//        long time = System.currentTimeMillis() - start;
+//        System.out.println("Sorted in "+time+" ms");
+//        printArray(toSort);
+//    }
+//    
+//    public static void doQuickSorting(int[] unsorted)
+//    {
+//        System.out.println("Quick Sorting");
+//        int[] toSort = new int[unsorted.length];
+//        System.arraycopy(unsorted, 0, toSort, 0, unsorted.length);
+//        System.out.println("Unsorted");
+//        printArray(toSort);
+//        long start = System.currentTimeMillis();
+//        QuickSorter.quickSortRight(toSort, 0, toSort.length - 1);
+//        long time = System.currentTimeMillis() - start;
+//        System.out.println("Sorted in "+time+" ms");
+//        printArray(toSort);
+//    }
+//    
+//    public static void doQuickSortingMedian3(int[] unsorted)
+//    {
+//    	System.out.println("Quick Sorting Median3");
+//        int[] toSort = new int[unsorted.length];
+//        System.arraycopy(unsorted, 0, toSort, 0, unsorted.length);
+//        System.out.println("Unsorted");
+//        printArray(toSort);
+//        long start = System.currentTimeMillis();
+//        QuickSorter.quickSortMedian3(toSort, 0, toSort.length - 1);
+//        long time = System.currentTimeMillis() - start;
+//        System.out.println("Sorted in "+time+" ms");
+//        printArray(toSort);
+//    }
     
     public static Scanner getScanner(boolean useSysin)
     {
@@ -74,31 +75,37 @@ public class ArraySorting
     public static void main(String[] args)
     {
         int[] unsorted;
-        Scanner sc = getScanner(false);
+//        Scanner sc = getScanner(false);
+//        
+////        Sorter.sortAscending = false;
         
-        Sorter.sortAscending = false;
+//        System.out.println("Enter array size: ");
+//        int size = Integer.parseInt(sc.nextLine());
+//        unsorted = new int[size];
+//        
+//        System.out.println("Enter space separated ints:");
+//        Scanner intScanner = new Scanner(sc.nextLine());
         
-        System.out.println("Enter array size: ");
-        int size = Integer.parseInt(sc.nextLine());
-        unsorted = new int[size];
+        Random r = new Random();
+        unsorted = new int[1000000000];
         
-        System.out.println("Enter space separated ints:");
-        Scanner intScanner = new Scanner(sc.nextLine());
         int i = 0;
-        while(i < size)
+        while(i < unsorted.length)
         {
-            unsorted[i++] = intScanner.nextInt();
+            unsorted[i++] = r.nextInt(0,10000);
         }
         
         System.out.println();
         
-        doMergeSorting(unsorted);
-        System.out.println();
-        doQuickSorting(unsorted);
-        System.out.println();
-        doQuickSortingMedian3(unsorted);
-        
-        intScanner.close();
-        sc.close();
+        QuickSorter.quickSortMedian3(unsorted, 0, unsorted.length);
+//        
+//        doMergeSorting(unsorted);
+//        System.out.println();
+//        doQuickSorting(unsorted);
+//        System.out.println();
+//        doQuickSortingMedian3(unsorted);
+//        
+//        intScanner.close();
+//        sc.close();
     }
 }

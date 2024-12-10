@@ -43,6 +43,13 @@ public class QuickSorter extends Sorter
 	
 	public static void quickSortMedian3(int[] toSort, int start, int end)
 	{
+		if(end - start < 20)
+		{
+			MergeSorter.mergeSortRecursive(toSort, Math.min(start, end), Math.max(start, end));
+			return;
+		}
+		
+		
 		if(end <= start)
 		{
 			return;
@@ -66,12 +73,5 @@ public class QuickSorter extends Sorter
 		quickSortMedian3(toSort, start, partitionIndex - 1);
 		quickSortMedian3(toSort, partitionIndex + 1, end);
 		
-	}
-	
-	public static void swap(int[] array, int a, int b)
-	{
-	    int tmp = array[a];
-		array[a] = array[b];
-		array[b] = tmp;
 	}
 }

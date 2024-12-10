@@ -3,15 +3,14 @@ package Lab9;
 public class MergeSorter extends Sorter
 {
     
-    /*
-	 * This should actually be done via moving the indices, not arraycopying
-	 */
     public static void mergeSortRecursive(int[] toSort, int lowerBound, int upperBound)
     {
-        if(lowerBound == upperBound)
+    	if(lowerBound == upperBound)
         {
             return;
         }
+        
+        
         
         int mid = (lowerBound + upperBound) / 2; // doesn't matter that this loses precision because we don't care
         
