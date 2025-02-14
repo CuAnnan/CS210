@@ -72,7 +72,7 @@ public class Cell
     
     public String getSouthWall()
     {
-    	return this.getSouthWestWall()+(this.walls[Direction.SOUTH]?"━":" ")+(this.neighbours[Direction.EAST] == null?"┛":"");
+    	return this.getSouthWestWall()+(this.walls[Direction.SOUTH]?"━━":"  ")+(this.neighbours[Direction.EAST] == null?"┛":"");
     }
     
     public String getSouthWestWall()
@@ -136,21 +136,21 @@ public class Cell
     
     public String getNorthWall()
     {
-    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"━":(this.solution && this.neighbours[Direction.NORTH].solution?Color.Background.Bright.BLACK:"")+" "+Color.RESET) + (this.neighbours[Direction.EAST]== null?this.getNorthEastEdgeWall():"");
+    	return this.getNorthWestWall() + (this.walls[Direction.NORTH]?"━━":(this.solution && this.neighbours[Direction.NORTH].solution?Color.Background.Bright.BLACK:"")+"  "+Color.RESET) + (this.neighbours[Direction.EAST]== null?this.getNorthEastEdgeWall():"");
     }
     
     public String getContents()
     {
         if(this.isStart)
         {
-            return Color.Background.RED+""+Color.Foreground.Bold.Bright.YELLOW+"S"+Color.RESET;
+            return Color.Background.RED+""+Color.Foreground.Bold.Bright.YELLOW+"St"+Color.RESET;
         }
         if(this.isEnd)
         {
-            return Color.Background.RED+""+Color.Foreground.Bold.Bright.YELLOW+"E"+Color.RESET;
+            return Color.Background.RED+""+Color.Foreground.Bold.Bright.YELLOW+"Ex"+Color.RESET;
         }
         
-        return (this.solution?Color.Background.Bright.BLACK:"")+" "+Color.RESET;
+        return (this.solution?Color.Background.Bright.BLACK:"")+"  "+Color.RESET;
     }
     
     public boolean hasWall(int direction)
